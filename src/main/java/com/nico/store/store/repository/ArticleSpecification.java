@@ -9,12 +9,8 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.nico.store.store.domain.*;
 import org.springframework.data.jpa.domain.Specification;
-
-import com.nico.store.store.domain.Article;
-import com.nico.store.store.domain.Brand;
-import com.nico.store.store.domain.Category;
-import com.nico.store.store.domain.Size;
 
 public class ArticleSpecification {
 	
@@ -22,7 +18,7 @@ public class ArticleSpecification {
 	
 	@SuppressWarnings("serial")
 	public static Specification<Article> filterBy(Integer priceLow, Integer priceHigh, List<String> sizes, 
-												  List<String> categories, List<String> brands, String search) {			
+												  List<Long> categories, List<Long> brands, String search) {
 		return new Specification<Article>() {
             @Override
             public Predicate toPredicate(Root<Article> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -33,12 +29,12 @@ public class ArticleSpecification {
                 	predicates.add(criteriaBuilder.and(joinSize.get("value").in(sizes)));
                 }
                 if (categories!=null && !categories.isEmpty()) {
-                	Join<Article, Category> joinSize = root.join("categories");
-                	predicates.add(criteriaBuilder.and(joinSize.get("name").in(categories)));
-                }   
+                	Join<Article, CategoryArticle> joinSize = root.join("categoryArticles");
+                	predicates.add(criteriaBuilder.and(joinSize.get("category").get("id").in(categories)));
+                }
                 if (brands!=null && !brands.isEmpty()) {
-                	Join<Article, Brand> joinSize = root.join("brands");
-                	predicates.add(criteriaBuilder.and(joinSize.get("name").in(brands)));
+                	Join<Article, BrandArticle> joinSize = root.join("brandArticles");
+                	predicates.add(criteriaBuilder.and(joinSize.get("brand").get("id").in(brands)));
                 }  
                 
                 if(search!=null && !search.isEmpty()) {

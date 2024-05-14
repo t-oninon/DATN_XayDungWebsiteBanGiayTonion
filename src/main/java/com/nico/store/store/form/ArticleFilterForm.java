@@ -5,8 +5,8 @@ import java.util.List;
 public class ArticleFilterForm {
 	
 	private List<String> size;
-	private List<String> category;
-	private List<String> brand;
+	private List<Long> category;
+	private List<Long> brand;
 	private Integer pricelow;
 	private Integer pricehigh;
 	private String sort;
@@ -24,21 +24,15 @@ public class ArticleFilterForm {
 		this.size = size;
 	}
 
-	public List<String> getCategory() {
+	public List<Long> getCategory() {
 		return category;
 	}
 
-	public void setCategory(List<String> category) {
-		this.category = category;
-	}
 
-	public List<String> getBrand() {
+	public List<Long> getBrand() {
 		return brand;
 	}
 
-	public void setBrand(List<String> brand) {
-		this.brand = brand;
-	}
 
 	public Integer getPricelow() {
 		return pricelow;
@@ -79,7 +73,12 @@ public class ArticleFilterForm {
 	public void setSearch(String search) {
 		this.search = search;
 	}
-	
-	
-	
+
+	public void setCategory(List<Long> category) {
+		this.category = category;
+	}
+
+	public void setBrand(List<Long> brand) {
+		this.brand = brand;
+	}
 }

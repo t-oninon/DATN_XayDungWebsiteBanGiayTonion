@@ -1,8 +1,13 @@
 package com.nico.store.store.service.impl;
 
-import java.util.List;
-import java.util.Optional;
+import java.math.BigInteger;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import com.nico.store.store.domain.Brand;
+import com.nico.store.store.domain.Category;
+import com.nico.store.store.dto.ArticleCusDTO;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
@@ -29,17 +34,50 @@ public class ArticleServiceImpl implements ArticleService {
 	private int featuredArticlesNumber;
 
 	@Override
-	public List<Article> findAllArticles() {
-		return (List<Article>) articleRepository.findAllEagerBy();
+	public List<ArticleCusDTO> findAllArticles() {
+		List<Article> list  = articleRepository.findAllEagerBy();
+		List<ArticleCusDTO> result = new ArrayList<>();
+
+		list.forEach(e -> {
+			ArticleCusDTO articleCusDTO = new ArticleCusDTO();
+//			articleCusDTO.setId(e.getId());
+			articleCusDTO.setTitle(e.getTitle());
+			articleCusDTO.setStock(e.getStock());
+			articleCusDTO.setPrice(e.getPrice());
+			articleCusDTO.setPicture(e.getPicture());
+			result.add(articleCusDTO);
+		});
+		return result;
 	}
 	
 	@Override
 	public Page<Article> findArticlesByCriteria(Pageable pageable, Integer priceLow, Integer priceHigh, 
-										List<String> sizes, List<String> categories, List<String> brands, String search) {		
+										List<String> sizes, List<Long> categories, List<Long> brands, String search) {
 		Page<Article> page = articleRepository.findAll(ArticleSpecification.filterBy(priceLow, priceHigh, sizes, categories, brands, search), pageable);
         return page;		
-	}	
-	
+	}
+
+	@Override
+	public List<ArticleCusDTO> findAllArticleCus() {
+		List<Map<String, Object>> list  = articleRepository.findAllArticle();
+		List<ArticleCusDTO> result = new ArrayList<>();
+
+		list.forEach(e -> {
+			ArticleCusDTO articleCusDTO = new ArticleCusDTO();
+			articleCusDTO.setId((BigInteger) e.get("id"));
+			articleCusDTO.setTitle((String) e.get("title"));
+			articleCusDTO.setStock((int) e.get("stock"));
+			articleCusDTO.setPrice((Double)  e.get("price"));
+			articleCusDTO.setPicture((String)  e.get("picture"));
+			articleCusDTO.setSizes(Arrays.stream(Objects.toString(e.get("lstSize")).split(", ")).collect(Collectors.toSet()));
+			articleCusDTO.setLstBrandName(Arrays.stream(Objects.toString(e.get("lstBrand")).split(", ")).collect(Collectors.toSet()));
+			articleCusDTO.setLstCategoryName(Arrays.stream(Objects.toString(e.get("lstCategory")).split(", ")).collect(Collectors.toSet()));
+
+			result.add(articleCusDTO);
+		});
+		return result;
+	}
+
 	@Override
 	public List<Article> findFirstArticles() {
 		return articleRepository.findAll(PageRequest.of(0,featuredArticlesNumber)).getContent(); 
@@ -72,13 +110,23 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	@Cacheable("categories")
-	public List<String> getAllCategories() {
+	public List<Category> getAllCategories() {
 		return articleRepository.findAllCategories();
 	}
 
 	@Override
 	@Cacheable("brands")
-	public List<String> getAllBrands() {
+	public List<Brand> getAllBrands() {
 		return articleRepository.findAllBrands();
+	}
+
+	@Override
+	public List<Map<String, Object>> findListCategoryByArticleId(Long articleId) {
+		return articleRepository.findListCategoryByArticleId(articleId);
+	}
+
+	@Override
+	public List<Map<String, Object>> findListBrandByArticleId(Long articleId) {
+		return articleRepository.findListBrandByArticleId(articleId);
 	}
 }
