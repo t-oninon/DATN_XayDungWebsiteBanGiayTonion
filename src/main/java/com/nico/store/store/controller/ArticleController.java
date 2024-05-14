@@ -1,10 +1,13 @@
 package com.nico.store.store.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.nico.store.store.dto.ArticleCusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +34,7 @@ public class ArticleController {
 	public String addArticle(Model model) {
 		Article article = new Article();
 		model.addAttribute("article", article);
+		List<Category> a = articleService.getAllCategories();
 		model.addAttribute("allSizes", articleService.getAllSizes());
 		model.addAttribute("allBrands", articleService.getAllBrands());
 		model.addAttribute("allCategories", articleService.getAllCategories());
@@ -54,7 +58,7 @@ public class ArticleController {
 	
 	@RequestMapping("/article-list")
 	public String articleList(Model model) {
-		List<Article> articles = articleService.findAllArticles();
+		List<ArticleCusDTO> articles = articleService.findAllArticleCus();
 		model.addAttribute("articles", articles);
 		return "articleList";
 	}
@@ -67,17 +71,17 @@ public class ArticleController {
 			preselectedSizes += (size.getValue() + ",");
 		}
 		String preselectedBrands = "";
-		for (Brand brand : article.getBrands()) {
-			preselectedBrands += (brand.getName() + ",");
-		}
-		String preselectedCategories = "";
-		for (Category category : article.getCategories()) {
-			preselectedCategories += (category.getName() + ",");
-		}		
+//		for (Brand brand : article.getBrands()) {
+//			preselectedBrands += (brand.getName() + ",");
+//		}
+//		String preselectedCategories = "";
+//		for (Category category : article.getCategories()) {
+//			preselectedCategories += (category.getName() + ",");
+//		}
 		model.addAttribute("article", article);
 		model.addAttribute("preselectedSizes", preselectedSizes);
 		model.addAttribute("preselectedBrands", preselectedBrands);
-		model.addAttribute("preselectedCategories", preselectedCategories);
+//		model.addAttribute("preselectedCategories", preselectedCategories);
 		model.addAttribute("allSizes", articleService.getAllSizes());
 		model.addAttribute("allBrands", articleService.getAllBrands());
 		model.addAttribute("allCategories", articleService.getAllCategories());

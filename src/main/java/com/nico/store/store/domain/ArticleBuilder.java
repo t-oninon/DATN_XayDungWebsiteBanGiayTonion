@@ -68,18 +68,18 @@ public class ArticleBuilder {
 		}
 		
 		if (this.categories != null && !this.categories.isEmpty() ) {
-			Set<Category> catElements = new HashSet<>();
-			for (String val : this.categories) {
-				catElements.add(new Category(val,article));
-			}
-			article.setCategories(catElements);
+//			Set<Category> catElements = new HashSet<>();
+//			for (String val : this.categories) {
+//				catElements.add(new Category(val,article));
+//			}
+//			article.setCategories(catElements);
 		}		
 		if (this.brands != null && !this.brands.isEmpty() ) {
-			Set<Brand> brandlements = new HashSet<>();
-			for (String val : this.brands) {
-				brandlements.add(new Brand(val,article));
-			}
-			article.setBrands(brandlements);
+//			Set<Brand> brandlements = new HashSet<>();
+//			for (String val : this.brands) {
+//				brandlements.add(new Brand(val,article));
+//			}
+//			article.setBrands(brandlements);
 		}		
 		
 		

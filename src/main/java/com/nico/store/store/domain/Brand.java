@@ -1,11 +1,10 @@
 package com.nico.store.store.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Brand {
@@ -14,18 +13,22 @@ public class Brand {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name="article_id")
-	private Article article;
-	
 	private String name;
-	
+
+	private Boolean status;
+
+	@OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<BrandArticle> brandArticles = new HashSet<>();
+
+
 	public Brand() {
 	}
-	
-	public Brand(String name, Article article) {
+
+	public Brand(String name, Boolean status, Set<BrandArticle> brandArticles) {
 		this.name = name;
-		this.article = article;
+		this.status = status;
+		this.brandArticles = brandArticles;
 	}
 
 	public Long getId() {
@@ -36,14 +39,6 @@ public class Brand {
 		this.id = id;
 	}
 
-	public Article getArticle() {
-		return article;
-	}
-
-	public void setArticle(Article article) {
-		this.article = article;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -51,6 +46,30 @@ public class Brand {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Set<BrandArticle> getBrandArticles() {
+		return brandArticles;
+	}
+
+	public void setBrandArticles(Set<BrandArticle> brandArticles) {
+		this.brandArticles = brandArticles;
+	}
+
+	@Override
+	public String toString() {
+		return "Brand{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", status=" + status +
+				", brandArticles=" + brandArticles +
+				'}';
+	}
 }
