@@ -14,22 +14,22 @@
         <!-- Shop Filters -->
         <div class="col-lg-3 col-md-4">
           <div class="accordion accordion-caret accordion-sidebar d-none d-md-block">
-<!--            <div class="card">-->
-<!--              <div class="card-header">-->
-<!--                <a href="#filter-categories" data-toggle="collapse" aria-expanded="true" aria-controls="filter-categories" role="button" class="h6">-->
-<!--                  CATEGORIES-->
-<!--                </a>-->
-<!--              </div>-->
-<!--              <div id="filter-categories" class="collapse show">-->
-<!--                <div class="card-body">-->
-<!--                  <div th:each="item : ${allCategories}" class="custom-control custom-checkbox">-->
-<!--                    <input type="checkbox" class="custom-control-input" th:id="${item}" th:name="category" th:value="${item}"-->
-<!--                           th:checked="${((param.category != null) and (#lists.contains(param.category, item )))} ? checked">-->
-<!--                    <label class="custom-control-label" th:for="${item}" th:text="${item}"></label>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
+            <div class="card">
+              <div class="card-header">
+                <a href="#filter-categories" data-toggle="collapse" aria-expanded="true" aria-controls="filter-categories" role="button" class="h6">
+                  Danh mục
+                </a>
+              </div>
+              <div id="filter-categories" class="collapse show">
+                <div class="card-body">
+                  <div th:each="item : ${allCategories}" class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" th:id="${item.name}" th:name="category" th:value="${item.id}"
+                           th:checked="${((param.category != null) and (#lists.contains(param.category, item.id.toString() )))} ? checked">
+                    <label class="custom-control-label" th:for="${item.name}" th:text="${item.name}"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="card">
               <div class="card-header">
                 <a href="#filter-price" data-toggle="collapse" aria-expanded="true" aria-controls="filter-price" role="button" class="h6">
@@ -39,9 +39,9 @@
               <div id="filter-price" class="collapse show">
                 <div class="card-body">
                   <div class="d-flex justify-content-between">
-                    <input type="text" class="form-control form-control-sm rounded-pill text-center font-weight-bold bg-light mr-2 minw-0"
+                    <input type="text" placeholder="Từ" class="form-control form-control-sm rounded-pill text-center font-weight-bold bg-light mr-2 minw-0"
                            th:name="pricelow" th:value="${param.pricelow}">
-                    <input type="text" class="form-control form-control-sm rounded-pill text-center font-weight-bold bg-light ml-2 minw-0"
+                    <input type="text" placeholder="đến" class="form-control form-control-sm rounded-pill text-center font-weight-bold bg-light ml-2 minw-0"
                            th:name="pricehigh" th:value="${param.pricehigh}">                   
                   </div>
                 </div>
@@ -64,20 +64,20 @@
               </div>
             </div>            
             <div class="card">
-              <div class="card-header">
-                <a href="#filter-brands" data-toggle="collapse" aria-expanded="true" aria-controls="filter-brands" role="button" class="h6">
-                  Thương hiệu
-                </a>
-              </div>
-              <div id="filter-brands" class="collapse show">
-                <div class="card-body">               
-                  <div th:each="item : ${allBrands}" class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" th:id="${item}" th:name="brand" th:value="${item}"
-                           th:checked="${((param.brand != null) and (#lists.contains(param.brand, item )))} ? checked">
-                    <label class="custom-control-label" th:for="${item}" th:text="${item}"></label>
-                  </div>
+                <div class="card-header">
+                    <a href="#filter-brands" data-toggle="collapse" aria-expanded="true" aria-controls="filter-brands" role="button" class="h6">
+                        Thương hiệu
+                    </a>
                 </div>
-              </div>
+                <div id="filter-brands" class="collapse show">
+                    <div class="card-body">
+                        <div th:each="item : ${allBrands}" class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" th:id="${item.name}" th:name="brand" th:value="${item.id}"
+                                   th:checked="${param.brand != null and #lists.contains(param.brand, item.id.toString())}">
+                            <label class="custom-control-label" th:for="${item.name}" th:text="${item.name}"></label>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card">
               <div class="card-header px-5 py-2 text-center">
