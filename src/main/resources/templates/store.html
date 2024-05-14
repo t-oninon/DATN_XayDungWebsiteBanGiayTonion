@@ -14,26 +14,26 @@
         <!-- Shop Filters -->
         <div class="col-lg-3 col-md-4">
           <div class="accordion accordion-caret accordion-sidebar d-none d-md-block">
-            <div class="card">
-              <div class="card-header">
-                <a href="#filter-categories" data-toggle="collapse" aria-expanded="true" aria-controls="filter-categories" role="button" class="h6">
-                  CATEGORIES
-                </a>
-              </div>
-              <div id="filter-categories" class="collapse show">
-                <div class="card-body">
-                  <div th:each="item : ${allCategories}" class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" th:id="${item}" th:name="category" th:value="${item}"
-                           th:checked="${((param.category != null) and (#lists.contains(param.category, item )))} ? checked">
-                    <label class="custom-control-label" th:for="${item}" th:text="${item}"></label>
-                  </div>
-                </div>
-              </div>
-            </div>
+<!--            <div class="card">-->
+<!--              <div class="card-header">-->
+<!--                <a href="#filter-categories" data-toggle="collapse" aria-expanded="true" aria-controls="filter-categories" role="button" class="h6">-->
+<!--                  CATEGORIES-->
+<!--                </a>-->
+<!--              </div>-->
+<!--              <div id="filter-categories" class="collapse show">-->
+<!--                <div class="card-body">-->
+<!--                  <div th:each="item : ${allCategories}" class="custom-control custom-checkbox">-->
+<!--                    <input type="checkbox" class="custom-control-input" th:id="${item}" th:name="category" th:value="${item}"-->
+<!--                           th:checked="${((param.category != null) and (#lists.contains(param.category, item )))} ? checked">-->
+<!--                    <label class="custom-control-label" th:for="${item}" th:text="${item}"></label>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
             <div class="card">
               <div class="card-header">
                 <a href="#filter-price" data-toggle="collapse" aria-expanded="true" aria-controls="filter-price" role="button" class="h6">
-                  PRICE
+                  Giá
                 </a>
               </div>
               <div id="filter-price" class="collapse show">
@@ -50,7 +50,7 @@
             <div class="card">
               <div class="card-header">
                 <a href="#filter-size" data-toggle="collapse" aria-expanded="true" aria-controls="filter-size" role="button" class="h6">
-                  SIZE
+                  Kích thước
                 </a>
               </div>
               <div id="filter-size" class="collapse show">
@@ -66,7 +66,7 @@
             <div class="card">
               <div class="card-header">
                 <a href="#filter-brands" data-toggle="collapse" aria-expanded="true" aria-controls="filter-brands" role="button" class="h6">
-                  BRANDS
+                  Thương hiệu
                 </a>
               </div>
               <div id="filter-brands" class="collapse show">
@@ -81,7 +81,8 @@
             </div>
             <div class="card">
               <div class="card-header px-5 py-2 text-center">
-                 <button type="submit" form="filter-form" class="btn btn-primary rounded-pill btn-block btn-sm">APPLY</button>              
+                 <button type="submit" style="background: #007bff;" form="filter-form" class="btn btn-primary rounded-pill btn-block btn-sm">Áp dụng
+                 </button>
               </div>
             </div>
           </div>   <!-- end of accordion sidebar -->         
@@ -99,7 +100,7 @@
                   <i data-feather="filter"></i> Filter</button>
                 <div class="input-group input-group-search input-group-sm mb-2">
                   
-                  <input type="text" class="form-control border-0 bg-light input-search" placeholder="Search..." 
+                  <input type="text" class="form-control border-0 bg-light input-search" placeholder="Nhập tên sản phẩm"
                          th:name="search" th:value="${filters.search}">
                   <div class="input-group-append">
                     <button class="btn btn-light" type="submit"><i data-feather="search"></i></button>
@@ -109,24 +110,24 @@
               
               <div class="btn-group ml-3">
                 <button type="button" class="btn btn-light btn-sm border rounded-pill" data-toggle="dropdown" 
-                        aria-haspopup="true" aria-expanded="false">                        
-                  <th:block th:switch="${filters.sort}">                    
-                    <span id="dropdown-sort-text" th:case="'priceasc'">Low - High Price</span>
-                    <span id="dropdown-sort-text" th:case="'pricedesc'">High - Low Price</span>
-                    <span id="dropdown-sort-text" th:case="'alphasc'">A - Z Order</span>
-                    <span id="dropdown-sort-text" th:case="'alphdesc'">Z - A Order</span>
-                    <span id="dropdown-sort-text" th:case="*">Newest</span>
-                  </th:block>      
+                        aria-haspopup="true" aria-expanded="false">
+                  <th:block th:switch="${filters.sort}">
+                    <span id="dropdown-sort-text" th:case="'priceasc'">Giá tăng dần</span>
+                    <span id="dropdown-sort-text" th:case="'pricedesc'">Giá giảm dần</span>
+                    <span id="dropdown-sort-text" th:case="'alphasc'">Tên từ A - Z</span>
+                    <span id="dropdown-sort-text" th:case="'alphdesc'">Tên từ Z - A</span>
+                    <span id="dropdown-sort-text" th:case="*">Mới nhất</span>
+                  </th:block>
                   <i data-feather="chevron-down"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right shadow-sm">
-                  <button class="dropdown-item button-sort" type="button" value="newest">Newest</button>
-                  <button class="dropdown-item button-sort" type="button" value="priceasc">Low - High Price</button>
-                  <button class="dropdown-item button-sort" type="button" value="pricedesc">High - Low Price</button>
-                  <button class="dropdown-item button-sort" type="button" value="alphasc">A - Z Order</button>
-                  <button class="dropdown-item button-sort" type="button" value="alphdesc">Z - A Order</button>
+                  <button class="dropdown-item button-sort" type="button" value="newest">Mới nhất</button>
+                  <button class="dropdown-item button-sort" type="button" value="priceasc">Giá tăng dần</button>
+                  <button class="dropdown-item button-sort" type="button" value="pricedesc">Giá giảm dần</button>
+                  <button class="dropdown-item button-sort" type="button" value="alphasc">Tên từ A - Z</button>
+                  <button class="dropdown-item button-sort" type="button" value="alphdesc">Tên từ Z - A</button>
                 </div>
-              </div> 
+              </div>
               <input id="input-sort" hidden="hidden" type="text" name="sort" th:value="${filters.sort}">                           
             </div>
           </div>

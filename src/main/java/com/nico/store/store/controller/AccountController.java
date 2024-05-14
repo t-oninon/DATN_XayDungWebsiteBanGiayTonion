@@ -3,6 +3,8 @@ package com.nico.store.store.controller;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
@@ -45,6 +47,11 @@ public class AccountController {
 		model.addAttribute("emailExists", model.asMap().get("emailExists"));
 		return "myAccount";
 	}
+
+	@RequestMapping("/register")
+	public String register() {
+		return "myAccountRegister";
+	}
 	
 	@RequestMapping("/my-profile")
 	public String myProfile(Model model, Authentication authentication) {				
@@ -83,24 +90,50 @@ public class AccountController {
 	
 	@RequestMapping(value="/new-user", method=RequestMethod.POST)
 	public String newUserPost(@Valid @ModelAttribute("user") User user, BindingResult bindingResults,
-							  @ModelAttribute("new-password") String password, 
+							  @ModelAttribute("new-password") String password,
+							  @ModelAttribute("check-policy") String check,
 							  RedirectAttributes redirectAttributes, Model model) {
 		model.addAttribute("email", user.getEmail());
 		model.addAttribute("username", user.getUsername());	
 		boolean invalidFields = false;
 		if (bindingResults.hasErrors()) {
-			return "redirect:/login";
-		}		
+			return "redirect:/register";
+		}
+		redirectAttributes.addFlashAttribute("username", user.getUsername());
+		redirectAttributes.addFlashAttribute("email", user.getEmail());
+		redirectAttributes.addFlashAttribute("password", password);
+
 		if (userService.findByUsername(user.getUsername()) != null) {
 			redirectAttributes.addFlashAttribute("usernameExists", true);
+
 			invalidFields = true;
 		}
 		if (userService.findByEmail(user.getEmail()) != null) {
 			redirectAttributes.addFlashAttribute("emailExists", true);
+
 			invalidFields = true;
-		}	
+		}
+
+		if (!check.equals("on")) {
+			redirectAttributes.addFlashAttribute("noCheck", true);
+
+			invalidFields = true;
+		}
+		redirectAttributes.addFlashAttribute("check", check.equals("on") ? check : null);
+
+		String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(password);
+
+		if (!matcher.matches()) {
+			redirectAttributes.addFlashAttribute("passErr", true);
+
+			invalidFields = true;
+		}
+
 		if (invalidFields) {
-			return "redirect:/login";
+			return "redirect:/register";
 		}		
 		user = userService.createUser(user.getUsername(), password,  user.getEmail(), Arrays.asList("ROLE_USER"));	
 		userSecurityService.authenticateUser(user.getUsername());

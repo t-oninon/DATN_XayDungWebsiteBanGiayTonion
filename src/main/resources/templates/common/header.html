@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   
-  <title>Shoepp</title>
-  <link rel="icon" href="/image/icon-logo.png">  
+  <title>Tonion</title>
+  <link rel="icon" href="/image/logo/icon-logo.png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Roboto+Condensed|Roboto+Slab" rel="stylesheet">  
   <!-- Bootstrap core CSS -->
@@ -23,103 +23,256 @@
   <!-- Custom styles -->
   <link href="/css/style.css" rel="stylesheet">
     <!-- Feather icons -->
-  <script src="https://unpkg.com/feather-icons"></script>  
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link href="/fontawesome/css/all.min.css" rel="stylesheet" />
+  <link href="/css/bootstrap1.min.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/boxicons.min.css" rel="stylesheet">
+  <link href="/css/quill.snow.css" rel="stylesheet">
+  <link href="/css/quill.bubble.css" rel="stylesheet">
+  <link href="/css/remixicon.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> -->
+  <link href="/css/swiper-bundle.min.css" rel="stylesheet">
   
 </head>
 
 
 <body>
   <div th:fragment="navbar">
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm">
-      <a class="navbar-brand" th:href="@{/}"><img width="150" height="30" src="/image/logo.png"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbarCollapse" aria-controls="navbarCollapse"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto font-weight-bold">
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/}"> Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/store}"> Store </a>
-          </li>
-          <li class="nav-item">          
-            <a class="nav-link" th:href="@{/shopping-cart/cart}">Shopping Cart 
-            <span class="badge badge-primary badge-pill" style="vertical-align: top;" th:text="${shoppingCartItemNumber} > 0 ? ${shoppingCartItemNumber}"></span></a>
-          </li>                        
-        </ul>
-        <ul class="navbar-nav ml-auto font-weight-bold">          
-          <li class="nav-item">          
-            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">My Account </a>
-          </li>
-          <li class="nav-item">           
-            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/my-profile}">My Account</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}"> Log Out </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" sec:authorize="hasRole('ADMIN')" th:href="@{/article/article-list}"> ADMIN PORTAL</a>
-          </li>
-        </ul>
+    <header id="header" class="navbar header d-flex align-items-center justify-content-between">
+      <div class="header__left d-flex">
+        <div class="header__icon toggle-sidebar-btn d-block d-lg-none">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="header__icon header__search-toggle">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <div class="header__search d-flex justify-content-center align-items-center">
+          <div class="header__icon header__search-return">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          <form class="search-form d-flex align-items-center" method="get" th:action="@{/store}">
+            <input class="txtSearch" type="text" th:name="search" placeholder="Tìm kiếm trên Tonion"
+                   title="Enter search keyword">
+            <button type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+        </div>
       </div>
-    </nav>
-    
+
+      <div class="header__center">
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li class="dropdown">
+              <a href="product.html" class="nav-link "><span>Sneaker</span>
+                <i class="fa-solid fa-caret-down"></i>
+              </a>
+              <ul>
+                <li><a href="#">Adidas</a></li>
+                <li><a href="#">Nike</a></li>
+                <li><a href="#">Van</a></li>
+                <li><a href="#">Converse</a></li>
+                <li><a href="#">Puma</a></li>
+                <li><a href="#">Rebook</a></li>
+                <li><a href="#">New Balance</a></li>
+                <li><a href="#">Fila</a></li>
+                <li><a href="#">Balenciaga</a></li>
+              </ul>
+            </li>
+            <li><a class="nav-link" href="accessories.html">Phụ kiện</a></li>
+            <li><a class="nav-link" th:href="@{/store}">Cửa hàng</a></li>
+            <a th:href="@{/}" class="nav-link active logo d-flex align-items-center">
+              <img src="/image/logo/logo__rectanguler.png" alt="">
+              <!-- <h2 class="logo__name">Tonion.</h2> -->
+            </a>
+            <li><a class="nav-link" href="promotion.html">Khuyến mãi</a></li>
+            <li><a class="nav-link" href="service.html">Dịch vụ</a></li>
+            <li><a class="nav-link" href="contact.html">Liên hệ</a></li>
+          </ul>
+        </nav><!-- .navbar -->
+      </div>
+
+      <div class="header__right d-flex justify-content-end">
+        <div class="header__item me-3"  sec:authorize="hasRole('ADMIN')">
+          <div class="header__icon">
+            <a th:href="@{/article/article-list}"><i class="header__icon-i fa-solid fa-user-tie"></i></a>
+          </div>
+        </div>
+
+        <div class="header__item me-3" sec:authorize="!hasRole('ADMIN')">
+            <div class="header__icon">
+              <a th:href="@{/shopping-cart/cart}"><i class="header__icon-i fa-solid fa-cart-shopping"></i></a>
+              <span class="header__badge-number badge badge-primary badge-pill" th:text="${shoppingCartItemNumber} > 0 ? ${shoppingCartItemNumber}" th:classappend="${shoppingCartItemNumber} == 0 ? hide"></span>
+            </div>
+            <!-- HIỂN THỊ TỐI ĐA 4 MẶT HÀNG MỚI NHẤT -->
+            <!-- <div class="header__item-drop header__item-none"> -->
+            <div class="header__item-drop" sec:authorize="isAuthenticated()">
+              <div class="header__item-no-cart">
+                <img src="/image/other/cart-empty.png" alt="">
+                <p>Chưa có sản phẩm</p>
+              </div>
+              <h5>Sản phẩm mới thêm vào giỏ hàng</h5>
+              <ul class="header__card" style="display: block">
+                <li class="header__card-item">
+                  <img src="/image/product/Van/Van1.1.jpg" alt="">
+                  <div class="header__product-info">
+                    <p class="header__product-name">VANS SK8-HI VINTAGE POP MARSHMALLOW</p>
+                    <p class="header__product-price">2.200.000₫</p>
+                  </div>
+
+                </li>
+                <li class="header__card-item">
+                  <img src="/image/product/Van/Van2.jpg" alt="">
+                  <div class="header__product-info">
+                    <p class="header__product-name">VANS SK8-HI CLASSIC NAVY/WHITE</p>
+                    <p class="header__product-price">2.200.000₫</p>
+                  </div>
+
+                </li>
+              </ul>
+              <div class="header__card-link">
+                <a href="cart-detail.html">Xem chi tiết giỏ hàng</a>
+              </div>
+
+            </div>
+        </div>
+
+        <!-- ======= HEADER AUTH ======= -->
+        <div class="header__item auth-btn header__auth">
+          <div class="header__icon" sec:authorize="isAnonymous()">
+            <a th:href="@{/register}"><i class="header__icon-i fa-solid fa-user"></i></a>
+          </div>
+          <div class="header__icon" sec:authorize="isAuthenticated()">
+            <a><i class="header__icon-i fa-solid fa-user"></i></a>
+           <div class="header__item-drop">
+            <ul class="header__option">
+              <li><a th:href="@{/my-profile}">
+                <i class="fa-solid fa-user"></i>
+                <span>Thông tin tài khoản</span>
+              </a></li>
+              <li><a href="">
+                <i class="fa-regular fa-calendar-days"></i>
+                <span>Đơn hàng</span>
+              </a></li>
+              <li><a th:href="@{/logout}">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Đăng xuất</span>
+              </a></li>
+            </ul>
+
+          </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="after-header"></div>
+<!--    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm">-->
+<!--      <a class="navbar-brand" th:href="@{/}"><img width="150" height="36" src="/image/logo/logo__rectanguler.png"></a>-->
+<!--      <button class="navbar-toggler" type="button" data-toggle="collapse"-->
+<!--        data-target="#navbarCollapse" aria-controls="navbarCollapse"-->
+<!--        aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--      </button>-->
+<!--      <div class="collapse navbar-collapse" id="navbarCollapse">-->
+<!--        <ul class="navbar-nav mr-auto font-weight-bold">-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" th:href="@{/}"> Home</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" th:href="@{/store}"> Store </a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" th:href="@{/shopping-cart/cart}">Shopping Cart-->
+<!--            <span class="badge badge-primary badge-pill" style="vertical-align: top;" th:text="${shoppingCartItemNumber} > 0 ? ${shoppingCartItemNumber}"></span></a>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--        <ul class="navbar-nav ml-auto font-weight-bold">-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">My Account </a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/my-profile}">My Account</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}"> Log Out </a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link text-dark" sec:authorize="hasRole('ADMIN')" th:href="@{/article/article-list}"> ADMIN PORTAL</a>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </nav>-->
+
 
   </div>
 
   <div th:fragment="footer">
-    <div class="footer mt-5">
-      <div class="container mt-4">
-        <div class="row">
-          <div class="col-sm-6 col-lg-3 text-center pr-5">
-            <h5 class="font-weight-bold">SUBSCRIBE</h5>
-            <p>to our Newsletter to receive the latest news, sales and promos</p>
-            <form>
-              <div class="form-group">
-                <input type="email" class="form-control rounded-pill text-center footer-input" placeholder="Enter your email">
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-5 col-sm-12 footer__tonion">
+              <div class="footer-info">
+                <a href="home.html" class="logo row justify-content-center align-items-center">
+                  <div class="me-2 logo__circle">
+                    <img src="/image/logo/logo__circle.png" alt="">
+                  </div>
+                  <div class="logo__rectanguler">
+                    <img src="/image/logo/logo__rectanguler.png" alt="">
+                  </div>
+                  <!-- <h2 class="logo__name">Tonion.</h2> -->
+                </a>
+                <h4 class="footer__tonion-title">Trọn vẹn từng bước chân</h4>
+                <p class="footer__tonion-text">Thấu hiểu tâm lý khách hàng để mang đến những sản phẩm chất lượng nhất.</p>
+                <div class="social-links d-flex justify-content-center">
+                  <a href="#" class="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                  <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+                  <a href="#" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+
               </div>
-              <button type="button" class="btn btn-primary btn-block rounded-pill">SUBSCRIBE</button>
-            </form>
-          </div>          
-          <div class="col-6 col-lg-3 pl-3">
-            <h6 class="font-weight-bold">Customer Service</h6>
-            <div class="list-group list-group-flush list-group-no-border list-group-sm">
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">Help Center</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">How to buy</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">Delivery</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">How to return</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">Payment Method</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">Shipping Method</a>
             </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 footer-links footer__about">
+              <h4>Về chúng tôi</h4>
+              <ul>
+                <li><a href="#">Giới thiệu tổng quan</a></li>
+                <li><a href="#">Điều khoản sử dụng</a></li>
+                <li><a href="#">Trung tâm hoạt động</a></li>
+                <li><a href="#">Trung tâm khách hàng</a></li>
+                <li><a href="#">Hỏi đáp</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 footer-links footer__help">
+              <h4>Hỗ trợ khách hàng</h4>
+              <ul>
+                <li><a href="#">Hotline: 0966734205</a></li>
+                <li><a href="#">Email: t.onion.2002@gmail.com</a></li>
+                <li><a href="#">Chính sách giải quyết khiếu lại</a></li>
+                <li><a href="#">Chính sách đăng tin</a></li>
+                <li><a href="#">Quy định đăng tin</a></li>
+              </ul>
+            </div>
+
+
           </div>
-          <div class="col-6 col-lg-3 pl-3">
-            <h6 class="font-weight-bold">Shoepp</h6>
-            <div class="list-group list-group-flush list-group-no-border list-group-sm">
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">About Us</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">Terms and Conditions</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">Privacy Policy</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">FAQs</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">Our Story</a>
-              <a href="javascript:void(0)" class="list-group-item list-group-item-action">Services</a>
-            </div>
-          </div>  
-          <div class="col-sm-6 col-lg-3 pl-3">
-            <h6 class="font-weight-bold ">Contact us</h6>
-            <div class="list-group list-group-flush list-group-no-border list-group-sm">
-              <span class="list-group-item"><strong>Phone:</strong> 00 55 124 8000</span>
-              <span class="list-group-item"><strong>Email:</strong> contact@shoepp.com</span>              
-              <span class="list-group-item"><strong>Mon-Fri:</strong> 9.00 am - 8.00 pm</span>
-              <span class="list-group-item"><strong>Saturday:</strong> 10.00 am - 6.00 pm</span>
-              
-            </div>    
-          </div>        
         </div>
       </div>
-    </div>
-    <div class="copyright">Copyright © 2022 Shoepp All rights reserved</div>  
+
+      <div class="container">
+        <div class="copyright">
+          <i class="fa-regular fa-copyright"></i> 4/2023, Tonion. All Rights Reserved. Website được thiết kế bởi <a
+                href="https://www.facebook.com/hunhbaongov">Nguyễn Trung Thành</a>
+        </div>
+      </div>
+    </footer><!-- End Footer -->
   </div>
 
 
@@ -130,6 +283,22 @@
           || document
               .write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
     </script>
+    <script src="/js/apexcharts.min.js"></script>
+    <script src="/js/bootstrap1.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/chart.umd.js"></script>
+    <script src="/js/echarts.min.js"></script>
+    <script src="/js/quill.min.js"></script>
+    <script src="/js/simple-datatables.js"></script>
+    <script src="/js/tinymce.min.js"></script>
+    <script src="/js/validate.js"></script>
+    <script src="/js/swiper-bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <!-- Template Main JS File -->
+    <!-- Template Main JS File -->
+    <script src="/js/main.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/datatables.min.js"></script>
     <script src="/js/tagsinput.js"></script>
@@ -138,11 +307,19 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script>
     //prevent multiple form submission
+    // $(function() {
+    //   $('form').submit(function(){
+    //     $("button[type='submit']", this)
+    //       .text("Please Wait...")
+    //       .attr('disabled', 'disabled');
+    //     return true;
+    //   });
+    // });
     $(function() {
-      $('form').submit(function(){
+      $('form').submit(function() {
         $("button[type='submit']", this)
-          .text("Please Wait...")
-          .attr('disabled', 'disabled');
+                .append('<i class="fas fa-spinner fa-spin"></i>')
+                .prop('disabled', true);
         return true;
       });
     });

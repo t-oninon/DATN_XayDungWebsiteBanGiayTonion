@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org./1999/xhtml" xmlns:sec="http://www.w3.org./1999/xhtml">
-<head th:replace="common/header :: common-header" />
+<head th:replace="common/admin :: common-admin" />
 <body>
 
-  <div th:replace="adminHome :: navbarAdmin"> </div>
+<div th:replace="common/admin :: header-admin"> </div>
+<div th:replace="common/admin :: navbar-admin"> </div>
 
+<main id="main" class="main">
   <div class="container page-content">
     <table id="table-article" class="table table-striped table-bordered table-hover">
-    <thead class="thead-dark">
+      <thead class="thead-dark">
       <tr>
         <th>Title</th>
         <th>Category</th>
@@ -17,28 +19,30 @@
         <th>Stock</th>
         <th>Operation</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr data-th-each="article : ${articles}">
         <td th:text="${article.title}"></td>
-        <td><div style="display:flex;"><span th:each="item : ${article.categories}" 
-            th:text="${item.getName()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
-        <td><div style="display:flex;"><span th:each="item : ${article.brands}" 
-            th:text="${item.getName()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
-        <td><div style="display:flex;"><span th:each="item : ${article.sizes}" 
-            th:text="${item.getValue()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
+        <td><div style="display:flex;"><span th:each="item : ${article.categories}"
+                                             th:text="${item.getName()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
+        <td><div style="display:flex;"><span th:each="item : ${article.brands}"
+                                             th:text="${item.getName()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
+        <td><div style="display:flex;"><span th:each="item : ${article.sizes}"
+                                             th:text="${item.getValue()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
         <td th:text="${article.price}"></td>
         <td th:text="${article.stock}"></td>
-        <td><a th:href="@{/article/edit?id=}+${article.id}" class="badge badge-primary">EDIT</a>  
-            <a th:href="@{/article/delete?id=}+${article.id}" class="badge badge-danger">DELETE </a> </td>
+        <td><a th:href="@{/article/edit?id=}+${article.id}" class="badge badge-primary">EDIT</a>
+          <a th:href="@{/article/delete?id=}+${article.id}" class="badge badge-danger">DELETE </a> </td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
   </div>
+</main>
 
 
 
-  <div th:replace="common/header :: body-scripts"> </div>
+
+  <div th:replace="common/admin :: body-scripts-admin"> </div>
   
   <script>
   	$(document).ready(function() {

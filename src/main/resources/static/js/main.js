@@ -57,12 +57,26 @@
   if (select('.modal__pass-btn')) {
     on('click', '.modal__pass-btn', function(e) {
       // alert("haha")
-      let pass = document.getElementById('');
+      let pass = document.getElementById('auth-pass-login');
       if(pass.type == 'text') {
         select('.modal__pass-btn').innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
         pass.type = 'password';
       } else { 
         select('.modal__pass-btn').innerHTML = '<i class="fa-regular fa-eye"></i>';
+        pass.type = 'text';
+      }
+    })
+  }
+
+  if (select('.modal__pass-btn1')) {
+    on('click', '.modal__pass-btn1', function(e) {
+      // alert("haha")
+      let pass = document.getElementById('auth-pass');
+      if(pass.type == 'text') {
+        select('.modal__pass-btn1').innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
+        pass.type = 'password';
+      } else {
+        select('.modal__pass-btn1').innerHTML = '<i class="fa-regular fa-eye"></i>';
         pass.type = 'text';
       }
     })

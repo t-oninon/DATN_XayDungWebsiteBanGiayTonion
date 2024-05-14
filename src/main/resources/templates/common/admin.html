@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org./1999/xhtml" xmlns:sec="http://www.w3.org./1999/xhtml">
+<head th:fragment="common-admin">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+
+  <title>Tonion</title>
+  <link rel="icon" href="/image/logo/icon-logo.png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Roboto+Condensed|Roboto+Slab" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tables plugin -->
+  <link href="/css/datatables.min.css" rel="stylesheet">
+  <!-- Bootstrap tagsinput -->
+  <link href="/css/tagsinput.css" rel="stylesheet">
+  <!-- Simple pagination -->
+  <link href="/css/simplePagination.css" rel="stylesheet" />
+  <!-- Slick carousel -->
+  <link href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" rel="stylesheet" />
+  <link href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- Feather icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link href="/fontawesome/css/all.min.css" rel="stylesheet" />
+  <link href="/css/bootstrap1.min.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/boxicons.min.css" rel="stylesheet">
+  <link href="/css/quill.snow.css" rel="stylesheet">
+  <link href="/css/quill.bubble.css" rel="stylesheet">
+  <link href="/css/remixicon.css" rel="stylesheet">
+  <link href="/css/adminStyle.css" rel="stylesheet">
+  <!-- <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> -->
+  <link href="/css/swiper-bundle.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+<!--  <header th:fragment="header-admin" id="header" class="header fixed-top d-flex align-items-center">-->
+<!--    <div class="d-flex align-items-center justify-content-between">-->
+<!--      <i class="fa-solid fa-bars  toggle-sidebar-btn"></i>-->
+
+<!--      <a href="index.html" class="logo d-flex align-items-center">-->
+<!--        <img src="/image/logo/logo__rectanguler.png" alt="">-->
+<!--      </a>-->
+<!--    </div>&lt;!&ndash; End Logo &ndash;&gt;-->
+
+<!--  </header>&lt;!&ndash; End Header &ndash;&gt;-->
+
+  <header th:fragment="header-admin (title)" id="header" class="navbar header d-flex align-items-center justify-content-between">
+    <div class="header__left d-flex">
+      <div class="header__icon toggle-sidebar-btn">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+
+      <a th:href="@{/}" class="nav-link d-flex align-items-center">
+        <img src="/image/logo/logo__rectanguler.png" alt="" height="36px">
+        <!-- <h2 class="logo__name">Tonion.</h2> -->
+      </a>
+    </div>
+
+    <div class="header__center">
+      <p class="header__center-title" th:text="${title}">Quản lý website Tonion</p>
+    </div>
+
+    <div class="header__right d-flex justify-content-end">
+      <!-- ======= HEADER AUTH ======= -->
+      <div class="header__item auth-btn header__auth">
+        <div class="header__icon-admin" sec:authorize="isAuthenticated()">
+          <a><i class="header__icon-i fa-solid fa-user-shield"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="after-header"></div>
+
+  <!-- ======= Sidebar ======= -->
+  <aside th:fragment="navbar-admin" id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-socks"></i><span>Quản lý sản phẩm</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/article/article-list}">
+              <i class="bi bi-circle"></i><span>Xem danh sách</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/article/add}">
+              <i class="bi bi-circle"></i><span>Thêm mới sản phẩm</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+  <div th:fragment="body-scripts-admin">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+      window.jQuery
+      || document
+              .write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="/js/apexcharts.min.js"></script>
+    <script src="/js/bootstrap1.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/chart.umd.js"></script>
+    <script src="/js/echarts.min.js"></script>
+    <script src="/js/quill.min.js"></script>
+    <script src="/js/simple-datatables.js"></script>
+    <script src="/js/tinymce.min.js"></script>
+    <script src="/js/validate.js"></script>
+    <script src="/js/swiper-bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <!-- Template Main JS File -->
+    <!-- Template Main JS File -->
+    <script src="/js/main.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/datatables.min.js"></script>
+    <script src="/js/tagsinput.js"></script>
+    <script>feather.replace()</script>
+    <script type="text/javascript" src="/js/jquery.simplePagination.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+      //prevent multiple form submission
+      // $(function() {
+      //   $('form').submit(function(){
+      //     $("button[type='submit']", this)
+      //       .text("Please Wait...")
+      //       .attr('disabled', 'disabled');
+      //     return true;
+      //   });
+      // });
+      $(function() {
+        $('form').submit(function() {
+          $("button[type='submit']", this)
+                  .append('<i class="fas fa-spinner fa-spin"></i>')
+                  .prop('disabled', true);
+          return true;
+        });
+      });
+    </script>
+
+  </div>
+
+</body>
+
+</html>
