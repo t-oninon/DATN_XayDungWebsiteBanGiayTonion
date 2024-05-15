@@ -90,13 +90,13 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	@CacheEvict(value = { "sizes", "categories", "brands" }, allEntries = true)
+	@CacheEvict(value = { "sizes", "categoryArticles", "brandArticles" }, allEntries = true)
 	public Article saveArticle(Article article) {
 		return articleRepository.save(article);
 	}
 	
 	@Override
-	@CacheEvict(value = { "sizes", "categories", "brands" }, allEntries = true)
+	@CacheEvict(value = { "sizes", "categoryArticles", "brandArticles" }, allEntries = true)
 	public void deleteArticleById(Long id) {
 		articleRepository.deleteById(id);		
 	}

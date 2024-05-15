@@ -23,12 +23,16 @@
       <tbody>
       <tr data-th-each="article : ${articles}">
         <td th:text="${article.title}"></td>
-        <td><div style="display:flex;"><span th:each="item : ${article.categories}"
-                                             th:text="${item.getName()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
-        <td><div style="display:flex;"><span th:each="item : ${article.brands}"
-                                             th:text="${item.getName()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+
+        <td><div style="display:flex;"><span th:each="item : ${article.lstCategoryName}"
+                                             th:text="${item}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
+        <td><div style="display:flex;"><span th:each="item : ${article.lstBrandName}"
+                                             th:text="${item}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
         <td><div style="display:flex;"><span th:each="item : ${article.sizes}"
-                                             th:text="${item.getValue()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
+                                             th:text="${item}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
         <td th:text="${article.price}"></td>
         <td th:text="${article.stock}"></td>
         <td><a th:href="@{/article/edit?id=}+${article.id}" class="badge badge-primary">EDIT</a>
@@ -38,8 +42,6 @@
     </table>
   </div>
 </main>
-
-
 
 
   <div th:replace="common/admin :: body-scripts-admin"> </div>

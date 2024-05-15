@@ -1,13 +1,11 @@
 package com.nico.store.store.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Article {
@@ -23,11 +21,13 @@ public class Article {
 	@OneToMany(mappedBy="article", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Size> sizes;
 	
-	@OneToMany(mappedBy="article", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Brand> brands;
+	@OneToMany(mappedBy="article", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<BrandArticle> brandArticles = new HashSet<>();
 	
-	@OneToMany(mappedBy="article", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Category> categories;
+	@OneToMany(mappedBy="article", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<CategoryArticle> categoryArticles = new HashSet<>();
 
 	public Article() {
 	}
@@ -51,27 +51,27 @@ public class Article {
         size.setArticle(null);
     }
     
-	public void addCategory(Category category) {
-        categories.add(category);
-        category.setArticle(this);
-    }
- 
-    public void removeCategory(Category category) {
-    	categories.remove(category);
-        category.setArticle(null);
-    }
+//	public void addCategory(Category category) {
+//        categories.add(category);
+//        category.setArticle(this);
+//    }
+//
+//    public void removeCategory(Category category) {
+//    	categories.remove(category);
+//        category.setArticle(null);
+//    }
     
-	public void addSize(Brand brand) {
-        brands.add(brand);
-        brand.setArticle(this);
-    }
- 
-    public void removeSize(Brand brand) {
-    	brands.remove(brand);
-        brand.setArticle(null);
-    }
-	
-	
+//	public void addSize(Brand brand) {
+//        brands.add(brand);
+//        brand.setArticle(this);
+//    }
+//
+//    public void removeSize(Brand brand) {
+//    	brands.remove(brand);
+//        brand.setArticle(null);
+//    }
+
+
 	public Long getId() {
 		return id;
 	}
@@ -102,18 +102,19 @@ public class Article {
 	public void setSizes(Set<Size> sizes) {
 		this.sizes = sizes;
 	}
-	public Set<Brand> getBrands() {
-		return brands;
+	public Set<BrandArticle> getBrandArticles() {
+		return brandArticles;
 	}
-	public void setBrands(Set<Brand> brands) {
-		this.brands = brands;
+	public void setBrandArticles(Set<BrandArticle> brandArticles) {
+		this.brandArticles = brandArticles;
 	}
-	public Set<Category> getCategories() {
-		return categories;
+	public Set<CategoryArticle> getCategoryArticles() {
+		return categoryArticles;
 	}
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
+	public void setCategoryArticles(Set<CategoryArticle> categoryArticles) {
+		this.categoryArticles = categoryArticles;
 	}
+
 	public String getPicture() {
 		return picture;
 	}

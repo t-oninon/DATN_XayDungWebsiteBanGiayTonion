@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.nico.store.store.dto.ArticleCusDTO;
+import com.nico.store.store.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ import com.nico.store.store.domain.Brand;
 import com.nico.store.store.domain.Category;
 import com.nico.store.store.domain.Size;
 import com.nico.store.store.service.ArticleService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/article")
@@ -29,30 +32,45 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
+
+	@Autowired
+	private StorageService storageService;
 	
 	@RequestMapping("/add")
 	public String addArticle(Model model) {
-		Article article = new Article();
-		model.addAttribute("article", article);
-		List<Category> a = articleService.getAllCategories();
+		model.addAttribute("article", new Article());
 		model.addAttribute("allSizes", articleService.getAllSizes());
 		model.addAttribute("allBrands", articleService.getAllBrands());
 		model.addAttribute("allCategories", articleService.getAllCategories());
 		return "addArticle";
 	}
-	
+
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addArticlePost(@ModelAttribute("article") Article article, HttpServletRequest request) {
+	public String addArticlePost(@ModelAttribute("article") Article article,
+								 HttpServletRequest request,
+								 @RequestParam("file") MultipartFile file
+	) {
+
+		List<String> a = Arrays.asList(request.getParameter("category").split("\\s*,\\s*"));
+
+		List<String> b = Arrays.asList(request.getParameter("brand").split("\\s*,\\s*"));
+
+		List<Category> categoryList =  articleService.getAllCategories();
+		List<Category> c = articleService.getAllCategories().stream().filter(e -> a.contains(e.getName())).collect(Collectors.toList());
+		List<Brand> d = articleService.getAllBrands().stream().filter(e -> b.contains(e.getName())).collect(Collectors.toList());
+
+		this.storageService.store(file);
+
 		Article newArticle = new ArticleBuilder()
 				.withTitle(article.getTitle())
 				.stockAvailable(article.getStock())
 				.withPrice(article.getPrice())
-				.imageLink(article.getPicture())
+				.imageLink(file.getOriginalFilename())
 				.sizesAvailable(Arrays.asList(request.getParameter("size").split("\\s*,\\s*")))
-				.ofCategories(Arrays.asList(request.getParameter("category").split("\\s*,\\s*")))
-				.ofBrand(Arrays.asList(request.getParameter("brand").split("\\s*,\\s*")))
-				.build();		
-		articleService.saveArticle(newArticle);	
+				.ofCategories(c)
+				.ofBrand(d)
+				.build();
+		articleService.saveArticle(newArticle);
 		return "redirect:article-list";
 	}
 	
@@ -88,22 +106,22 @@ public class ArticleController {
 		return "editArticle";
 	}
 	
-	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String editArticlePost(@ModelAttribute("article") Article article, HttpServletRequest request) {		
-		Article newArticle = new ArticleBuilder()
-				.withTitle(article.getTitle())
-				.stockAvailable(article.getStock())
-				.withPrice(article.getPrice())
-				.imageLink(article.getPicture())
-				.sizesAvailable(Arrays.asList(request.getParameter("size").split("\\s*,\\s*")))
-				.ofCategories(Arrays.asList(request.getParameter("category").split("\\s*,\\s*")))
-				.ofBrand(Arrays.asList(request.getParameter("brand").split("\\s*,\\s*")))
-				.build();
-		newArticle.setId(article.getId());
-		articleService.saveArticle(newArticle);	
-		return "redirect:article-list";
-	}
-	
+//	@RequestMapping(value="/edit", method=RequestMethod.POST)
+//	public String editArticlePost(@ModelAttribute("article") Article article, HttpServletRequest request) {
+//		Article newArticle = new ArticleBuilder()
+//				.withTitle(article.getTitle())
+//				.stockAvailable(article.getStock())
+//				.withPrice(article.getPrice())
+//				.imageLink(article.getPicture())
+//				.sizesAvailable(Arrays.asList(request.getParameter("size").split("\\s*,\\s*")))
+//				.ofCategories(Arrays.asList(request.getParameter("category").split("\\s*,\\s*")))
+//				.ofBrand(Arrays.asList(request.getParameter("brand").split("\\s*,\\s*")))
+//				.build();
+//		newArticle.setId(article.getId());
+//		articleService.saveArticle(newArticle);
+//		return "redirect:article-list";
+//	}
+//
 	@RequestMapping("/delete")
 	public String deleteArticle(@RequestParam("id") Long id) {
 		articleService.deleteArticleById(id);

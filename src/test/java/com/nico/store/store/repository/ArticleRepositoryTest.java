@@ -32,8 +32,8 @@ public class ArticleRepositoryTest {
 				.withTitle("article1")
 				.withPrice(50)
 				.sizesAvailable(Arrays.asList("38","39"))
-				.ofCategories(Arrays.asList("running"))
-				.ofBrand(Arrays.asList("nike"))
+//				.ofCategories(Arrays.asList("running"))
+//				.ofBrand(Arrays.asList("nike"))
 				.build();	
         entityManager.persist(article);            
         
@@ -41,8 +41,8 @@ public class ArticleRepositoryTest {
 				.withTitle("article2")
 				.withPrice(100)
 				.sizesAvailable(Arrays.asList("39", "40"))
-				.ofCategories(Arrays.asList("urban"))
-				.ofBrand(Arrays.asList("nike"))
+//				.ofCategories(Arrays.asList("urban"))
+//				.ofBrand(Arrays.asList("nike"))
 				.build();     
         entityManager.persist(article2);    
         
@@ -50,15 +50,15 @@ public class ArticleRepositoryTest {
 				.withTitle("article3")
 				.withPrice(200)
 				.sizesAvailable(Arrays.asList("39", "45", "43"))
-				.ofCategories(Arrays.asList("sneaker"))
-				.ofBrand(Arrays.asList("adidas"))
+//				.ofCategories(Arrays.asList("sneaker"))
+//				.ofBrand(Arrays.asList("adidas"))
 				.build();     
         entityManager.persist(article3); 
         
         Article article4 = new ArticleBuilder()
 				.withTitle("article4")
 				.sizesAvailable(Arrays.asList("45", "38"))
-				.ofBrand(Arrays.asList("puma"))
+//				.ofBrand(Arrays.asList("puma"))
 				.withPrice(300)
 				.build();     
         entityManager.persist(article4); 
@@ -66,7 +66,7 @@ public class ArticleRepositoryTest {
         Article article5 = new ArticleBuilder()
 				.withTitle("article5")
 				.withPrice(500)
-				.ofBrand(Arrays.asList("puma"))
+//				.ofBrand(Arrays.asList("puma"))
 				.build();     
         entityManager.persist(article5); 
 	}

@@ -11,8 +11,8 @@ public class ArticleBuilder {
 	private double price;
 	private String picture;
 	private List<String> sizes;
-	private List<String> categories;
-	private List<String> brands;
+	private List<Category> categoryArticles;
+	private List<Brand> brandArticles;
 	
 	public ArticleBuilder() {
 	}
@@ -42,13 +42,13 @@ public class ArticleBuilder {
 		return this;
 	}
 	
-	public ArticleBuilder ofCategories(List<String> categories) {
-		this.categories = categories;
+	public ArticleBuilder ofCategories(List<Category> categories) {
+		this.categoryArticles = categories;
 		return this;
 	}
 	
-	public ArticleBuilder ofBrand(List<String> brands) {
-		this.brands = brands;
+	public ArticleBuilder ofBrand(List<Brand> brands) {
+		this.brandArticles = brands;
 		return this;
 	}
 	
@@ -67,20 +67,21 @@ public class ArticleBuilder {
 			article.setSizes(sizeElements);
 		}
 		
-		if (this.categories != null && !this.categories.isEmpty() ) {
-//			Set<Category> catElements = new HashSet<>();
-//			for (String val : this.categories) {
-//				catElements.add(new Category(val,article));
-//			}
-//			article.setCategories(catElements);
-		}		
-		if (this.brands != null && !this.brands.isEmpty() ) {
-//			Set<Brand> brandlements = new HashSet<>();
-//			for (String val : this.brands) {
-//				brandlements.add(new Brand(val,article));
-//			}
-//			article.setBrands(brandlements);
-		}		
+		if (this.categoryArticles != null && !this.categoryArticles.isEmpty() ) {
+			Set<CategoryArticle> catElements = new HashSet<>();
+			for (Category cal : this.categoryArticles) {
+				catElements.add(new CategoryArticle(article, cal));
+			}
+			article.setCategoryArticles(catElements);
+		}
+
+		if (this.brandArticles != null && !this.brandArticles.isEmpty() ) {
+			Set<BrandArticle> brandlements = new HashSet<>();
+			for (Brand bra : this.brandArticles) {
+				brandlements.add(new BrandArticle(article, bra));
+			}
+			article.setBrandArticles(brandlements);
+		}
 		
 		
 		return article;
