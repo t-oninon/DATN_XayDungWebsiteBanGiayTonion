@@ -69,30 +69,22 @@
         <nav id="navbar" class="navbar">
           <ul>
             <li class="dropdown">
-              <a href="product.html" class="nav-link "><span>Sneaker</span>
+              <a href="product.html" class="nav-link "><span>Danh mục</span>
                 <i class="fa-solid fa-caret-down"></i>
               </a>
               <ul>
-                <li><a href="#">Adidas</a></li>
-                <li><a href="#">Nike</a></li>
-                <li><a href="#">Van</a></li>
-                <li><a href="#">Converse</a></li>
-                <li><a href="#">Puma</a></li>
-                <li><a href="#">Rebook</a></li>
-                <li><a href="#">New Balance</a></li>
-                <li><a href="#">Fila</a></li>
-                <li><a href="#">Balenciaga</a></li>
+                <li th:each="categoryItem : ${lstCategory}"><a th:href="@{/store?category=}+${categoryItem.id}" th:text="${categoryItem.name}"></a></li>
               </ul>
             </li>
             <li><a class="nav-link" href="accessories.html">Phụ kiện</a></li>
             <li><a class="nav-link" th:href="@{/store}">Cửa hàng</a></li>
-            <a th:href="@{/}" class="nav-link active logo d-flex align-items-center">
+            <a th:href="@{/}" class="nav-link logo d-flex align-items-center">
               <img src="/image/logo/logo__rectanguler.png" alt="">
               <!-- <h2 class="logo__name">Tonion.</h2> -->
             </a>
-            <li><a class="nav-link" href="promotion.html">Khuyến mãi</a></li>
-            <li><a class="nav-link" href="service.html">Dịch vụ</a></li>
-            <li><a class="nav-link" href="contact.html">Liên hệ</a></li>
+            <li><a class="nav-link" th:href="@{/user}">Khuyến mãi</a></li>
+            <li><a class="nav-link" th:href="@{/service}">Dịch vụ</a></li>
+            <li><a class="nav-link" th:href="@{/contact}">Liên hệ</a></li>
           </ul>
         </nav><!-- .navbar -->
       </div>
@@ -111,32 +103,24 @@
             </div>
             <!-- HIỂN THỊ TỐI ĐA 4 MẶT HÀNG MỚI NHẤT -->
             <!-- <div class="header__item-drop header__item-none"> -->
-            <div class="header__item-drop" sec:authorize="isAuthenticated()">
+            <div class="header__item-drop" th:classappend="${#lists.isEmpty(cartItemList)} ? header__item-none" sec:authorize="isAuthenticated()">
               <div class="header__item-no-cart">
                 <img src="/image/other/cart-empty.png" alt="">
                 <p>Chưa có sản phẩm</p>
               </div>
               <h5>Sản phẩm mới thêm vào giỏ hàng</h5>
-              <ul class="header__card" style="display: block">
+              <ul class="header__card" th:each="cartItem : ${cartItemList}">
                 <li class="header__card-item">
-                  <img src="/image/product/Van/Van1.1.jpg" alt="">
+                  <img th:src="'/image/article/pictures/'+${cartItem.article.picture}" alt="${cartItem.article.title}">
                   <div class="header__product-info">
-                    <p class="header__product-name">VANS SK8-HI VINTAGE POP MARSHMALLOW</p>
-                    <p class="header__product-price">2.200.000₫</p>
-                  </div>
-
-                </li>
-                <li class="header__card-item">
-                  <img src="/image/product/Van/Van2.jpg" alt="">
-                  <div class="header__product-info">
-                    <p class="header__product-name">VANS SK8-HI CLASSIC NAVY/WHITE</p>
-                    <p class="header__product-price">2.200.000₫</p>
+                    <p class="header__product-name"  th:text=${cartItem.article.title}></p>
+                    <p class="header__product-price"><span th:text="${#numbers.formatDecimal(cartItem.article.price, 0, 'COMMA', 0, 'POINT')}"></span> VND</p>
                   </div>
 
                 </li>
               </ul>
-              <div class="header__card-link">
-                <a href="cart-detail.html">Xem chi tiết giỏ hàng</a>
+              <div class="header__card-link-t">
+                <a th:href="@{/shopping-cart/cart}">Xem chi tiết giỏ hàng</a>
               </div>
 
             </div>

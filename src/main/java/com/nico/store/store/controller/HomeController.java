@@ -24,5 +24,14 @@ public class HomeController {
 		return "index";
 	}
 
+	@RequestMapping("/service")
+	public String service(Model model) {
+		return "service";
+	}
+
+	@RequestMapping("/contact")
+	public String contact(Model model) {
+		return "contact";
+	}
 	
 }

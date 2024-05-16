@@ -5,8 +5,17 @@
 
 <body class="d-flex flex-column">
   <div th:replace="common/header :: navbar"> </div>
-
-  <div class="container page-content">       
+  <!-- ======= Product Detail ======= -->
+  <section class="breadcrumb-infor">
+    <h2>Chi tiết giỏ hàng</h2>
+    <nav class="d-flex justify-content-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/}" >Trang chủ</a></li>
+        <li class="breadcrumb-item active">Chi tiết giỏ hàng</li>
+      </ol>
+    </nav>
+  </section>
+  <div class="container page-content">
     <form th:action="@{/shopping-cart/update-item}" method="post">   
     <input hidden="hidden" id="newqty" th:name="qty">    
     <input hidden="hidden" id="newid" th:name="id">     
@@ -21,9 +30,9 @@
                 </div>
                 <div class="col-8">
                   <a th:href="@{/article-detail?id=}+${cartItem.article.id}" class="h6 bold d-inline-block" th:text=${cartItem.article.title}></a>
-                  <div><i data-feather="check-circle" class="text-success"></i> In Stock</div>                  
-                  <div><small><b>Size</b>: <span th:text="${cartItem.size}"></span></small></div>                  
-                  <small><b>Unit Price</b>: $<span th:text="${#numbers.formatDecimal(cartItem.article.price, 0, 'COMMA', 2, 'POINT')}"></span></small>
+                  <div><i data-feather="check-circle" class="text-success"></i> Còn hàng</div>
+                  <div class="my-2"><span><b>Kích thước</b>: <span th:text="${cartItem.size}"></span></span></div>
+                  <span><b>Giá bán</b>: <span th:text="${#numbers.formatDecimal(cartItem.article.price, 0, 'COMMA', 0, 'POINT')}"></span> VND</span>
                 </div>                
               </div>  
            </div>                 
@@ -31,19 +40,19 @@
               <div class="row align-items-center mt-3">           
                 <div class="col-5">
                   <div class="row ">
-                    <label th:for="${cartItem.id}" class="col-sm-6 col-form-label text-sm-right">Qty</label>
+                    <label th:for="${cartItem.id}" class="col-sm-6 col-form-label text-sm-right">Số lượng</label>
                     <div class="col-sm-6">
                       <input th:id="${cartItem.id}" th:disabled="${cartItem.article.stock==0}" 
                          type="number" min="0" max="${cartItem.article.stock}"
                          class="form-control cartItemQty" th:value="${cartItem.qty}">
                       <button style="display: none;"
                           th:id="'update-item-'+${cartItem.id}" type="submit"
-                          class="btn btn-warning btn-xs">Update</button>                                     
+                          class="btn btn-warning btn-xs">Cập nhật</button>
                     </div>
                   </div>            
                 </div>
                 <div class="col-5 text-right">
-                  <span class="font-weight-bold">$ <span th:id="'price'+${cartItem.id}" th:text="${#numbers.formatDecimal(cartItem.subtotal, 0, 'COMMA', 2, 'POINT')}"></span></span>
+                  <span class="font-weight-bold"><span th:id="'price'+${cartItem.id}" th:text="${#numbers.formatDecimal(cartItem.subtotal, 0, 'COMMA', 0, 'POINT')}"></span> VND</span>
                 </div>
                 <div class="col-2 ">
                   <a th:href="@{/shopping-cart/remove-item?id=}+${cartItem.id}"><i class="mb-1" data-feather="trash-2"></i></a>                              
@@ -53,10 +62,9 @@
          </div>
          <div class="text-center mt-3">
             <div th:if="${#lists.isEmpty(cartItemList)}">The cart is empty! </div>
-            <small class="counter">TOTAL</small>
-            <h3 class="font-weight-bold">$ <span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 2, 'POINT')}"></span></h3>
-            <a th:href="@{/store}" class="btn btn-info rounded-pill "><i data-feather="arrow-left"></i> Back to shop</a>            
-            <a th:href="@{/checkout}" class="btn btn-primary rounded-pill">Checkout <i data-feather="arrow-right"></i></a>
+            <small class="counter">TỔNG TIỀN</small>
+            <h3 class="font-weight-bold"><span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"></span> VND</h3>
+            <a th:href="@{/checkout}" class="btn btn-primary rounded-pill" th:classappend="${#lists.isEmpty(cartItemList)} ? d-none">THANH TOÁN</a>
         </div>
       </div>
     </div>

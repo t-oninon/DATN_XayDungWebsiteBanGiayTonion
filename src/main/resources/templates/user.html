@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org./1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+<body class="d-flex flex-column">
+  <div th:replace="common/header :: navbar"> </div>
+  <!-- ======= Product Detail ======= -->
+  <section class="section">
+    <div class="container-lg profile">
+      <div class="profile__left">
+        <div class="account__avatar">
+          <img src="assets/img/other/avatar.png" alt="Profile">
+          <p class="account__name">Nguyễn Trung Thành</p>
+        </div>
+        <ul class="sidebar-nav profile__nav" id="sidebar-nav">
+          <li class="nav-item">
+            <a class="nav-link js-nav-link" data-right="#profile__edit" href="#">
+              <i class="fa-solid fa-user"></i><span>Thông tin tài khoản</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content" data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="#profile__edit" class="js-nav-item active" data-right="#profile__edit">
+                  <i class="bi bi-circle"></i>
+                  <span>Hồ sơ</span>
+                </a>
+              </li>
+              <li>
+                <a href="#profile__address" class="js-nav-item" data-right="#profile__address">
+                  <i class="bi bi-circle"></i>
+                  <span>Địa chỉ</span>
+                </a>
+              </li>
+              <li>
+                <a href="#change-pass" class="js-nav-item" data-right="#change-pass">
+                  <i class="bi bi-circle"></i>
+                  <span>Đổi mật khẩu</span>
+                </a>
+              </li>
+            </ul>
+          </li><!-- End Sneaker Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link js-nav-link collapsed" href="#order-manager" data-right="#order-manager">
+              <i class="fa-solid fa-calendar-days"></i>
+              <span>Đơn hàng</span>
+            </a>
+          </li><!-- End Home Nav -->
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-nav-link collapsed" href="#user__faq" data-right="#user__faq">
+              <i class="fa-solid fa-question"></i>
+              <span>F A Q</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="home.html">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <span>Đăng xuất</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="profile__right card-body pt-3">
+        <!-- Profile Edit -->
+        <div id="profile__edit" class="profile__right-item showRight">
+          <div class="profile-heading">
+            <h1>Hồ Sơ Của Tôi</h1>
+            <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+          </div>
+          <form>
+            <div class="profile-Edit__group">
+              <div class="profile-Edit__infor">
+                <div class="profile__item">
+                  <p class="profile__title">Họ & tên</p>
+                  <div class="profile__content">
+                    <input name="txtFullName" type="text" value="Nguyễn Trung Thành" placeholder="Thêm họ tên">
+                    <p class="profile__error"></p>
+                  </div>
+                </div>
+
+                <div class="profile__item">
+                  <p class="profile__title">Email</p>
+                  <div class="profile__content">
+                    <input name="txtEmail" type="email" value="thanhmeroy@gmail.com" placeholder="Thêm địa chỉ Email">
+                    <p class="profile__error"></p>
+                  </div>
+                </div>
+
+                <div class="profile__item">
+                  <p class="profile__title">Số điện thoại</p>
+                  <div class="profile__content">
+                    <input name="txtPhone" type="text" value="" placeholder="Thêm số điện thoại">
+                    <p class="profile__error"></p>
+                  </div>
+                </div>
+
+                <div class="profile__item">
+                  <p class="profile__title">Giới tính</p>
+                  <div class="profile__content">
+                    <input type="radio" name="txtGender" id="female-gender">
+                    <label for="female-gender">Nữ</label>
+                    <input type="radio" name="txtGender" id="male-gender">
+                    <label for="male-gender">Nam</label>
+                    <input type="radio" name="txtGender" id="other-gender">
+                    <label for="other-gender">Khác</label>
+                    <p class="profile__error"></p>
+                  </div>
+                </div>
+
+                <div class="profile__item">
+                  <p class="profile__title">Ngày sinh</p>
+                  <div class="profile__content">
+                    <input type="date" name="txtDate"/>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <span class="profile__submit">Lưu thay đổi</span>
+                </div>
+              </div>
+              <div class="profile-Edit__avatar">
+                <img src="assets/img/other/avatar.png" alt="Ảnh đại diện">
+                <div class="profile-Edit__avatar-btn">
+                  <a title="Upload new profile image">
+                    <input type="file" id="uploadImg" onchange="handlePreviewAvatar(event)">
+                    <label for="uploadImg"><i class="fa-solid fa-upload"></i></label>
+                  </a>
+                  <a title="Remove my profile image" onclick="handleDeleteAvatar(event)"><i class="bi bi-trash"></i></a>
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </form><!-- End Profile Edit Form -->
+        </div>
+
+        <!-- Profile Address -->
+        <div id="profile__address" class="profile__right-item">
+          <div class="profile-heading">
+            <h1>Địa chỉ</h1>
+            <p>Lựa chọn và thiết lập địa chỉ giao hàng</p>
+          </div>
+          <div class="profile-address__show">
+            <ul class="profile-address__list">
+              <li>
+                <div class="profile-address__left">
+                  <div class="profile-address__head">
+                    <p class="profile-address__name">Nguyễn Trung Thành</p>
+                    <p class="profile-address__phone">0981811655</p>
+                  </div>
+                  <p class="profile-address__map">21 Ngõ 59 Đường Bắc Lai Xá
+                    Xã Kim Chung, Huyện Hoài Đức, Hà Nội</p>
+                </div>
+                <div class="profile-address__right">
+                  <p class="btn__update">Chỉnh sửa</p>
+                  <p class="btn__delete">Xóa</p>
+                  <!-- <p class="btn__set-default">Đặt làm mặc định</p> -->
+                </div>
+                <span class="profile-address__tag"><i class="fa-solid fa-check"></i></span>
+              </li>
+            </ul>
+
+            <div class="profile-address__add">
+              <div class="btn__add-address" onclick="addAddress(event)">
+                <i class="fa-solid fa-plus"></i>
+                Thêm địa chỉ mới
+              </div>
+            </div>
+          </div>
+
+          <form class="profile-address__sub-show">
+            <div class="profile-address__infor">
+              <div class="profile__item">
+                <p class="profile__title">Họ và tên</p>
+                <div class="profile__content">
+                  <input name="txtFullName" type="text" value="" placeholder="Nhập họ tên">
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <div class="profile__item">
+                <p class="profile__title">Số điện thoại</p>
+                <div class="profile__content">
+                  <input name="txtPhone" type="text" value="" placeholder="Nhập số điện thoại">
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <div class="profile__item">
+                <p class="profile__title">Tỉnh/Thành phố</p>
+                <div class="profile__content" >
+                  <select class="profile__select" name="city" id="city">
+                    <option value="0" selected>Chọn Tỉnh/Thành phố</option>
+                  </select>
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <div class="profile__item">
+                <p class="profile__title">Quận/Huyện</p>
+                <div class="profile__content" >
+                  <select class="profile__select" name="district" id="district">
+                    <option value="0" selected>Chọn Quận/Huyện</option>
+                  </select>
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <div class="profile__item">
+                <p class="profile__title">Phường/Xã</p>
+                <div class="profile__content" >
+                  <select class="profile__select" name="ward" id="ward">
+                    <option value="0" selected>Chọn Phường/Xã </option>
+                  </select>
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <div class="profile__item mb-2">
+                <p class="profile__title">Địa chỉ cụ thể</p>
+                <div class="profile__content profile__content-address" >
+                  <textarea name="txtMap" class="form-control" placeholder="Nhập địa chỉ cụ thể" style="height: 90px"></textarea>
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <!-- <div class="profile__item">
+                <p class="profile__title"></p>
+                <div class="profile__content" >
+                  <input type="checkbox" name="txtGender" id="address_default">
+                  <label for="address_default">Đặt làm địa chỉ mặc định</label>
+                </div>
+              </div> -->
+
+              <div class="text-center">
+                <span class="profile__submit" onclick="handleAddAddress(event)">Lưu lựa chọn</span>
+              </div>
+            </div>
+          </form><!-- End Profile Edit Form -->
+        </div>
+
+        <!-- Profile Change Pass -->
+        <div id="change-pass" class="profile__right-item">
+          <div class="profile-heading">
+            <h1>Đổi mật khẩu</h1>
+            <p>Để đảm bảo tính bảo mật vui lòng đặt mật khẩu với ít nhất 8 kí tự</p>
+          </div>
+          <form>
+            <div class="change-pass__infor">
+              <div class="profile__item">
+                <p class="profile__title">Mật khẩu cũ</p>
+                <div class="profile__content" >
+                  <input name="txtPass" type="text" placeholder="Nhập mật khẩu hiện tại">
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <div class="profile__item">
+                <p class="profile__title">Mật khẩu mới</p>
+                <div class="profile__content" >
+                  <input name="txtRePass" type="text" placeholder="Nhập mật khẩu mới">
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <div class="profile__item">
+                <p class="profile__title">Xác nhận mật khẩu</p>
+                <div class="profile__content" >
+                  <input name="txtNewPass" type="text" placeholder="Nhập lại mật khẩu mới">
+                  <p class="profile__error"></p>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <span class="profile__submit">Đổi mật khẩu</span>
+              </div>
+            </div>
+          </form><!-- End Profile Edit Form -->
+        </div>
+
+        <!-- Order Manager -->
+        <div id="order-manager" class="profile__right-item">
+          <div></div>
+          <ul class="nav nav-tabs order__tabs">
+            <li class="nav-item">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#all-orders">Tất cả</button>
+            </li>
+
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#order-processing">Đang xử lý</button>
+            </li>
+
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#order-shipping">Đang vận chuyển</button>
+            </li>
+
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#order-completed">Hoàn thành</button>
+            </li>
+
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#order-canceled">Đã hủy</button>
+            </li>
+
+          </ul>
+
+          <div class="tab-content order__content">
+
+            <!-- <div class="tab-pane fade show all-orders tab-pane-none " id="all-orders"> -->
+            <div class="tab-pane fade show all-orders" id="all-orders">
+              <div class="order__empty">
+                <img src="./assets/img/other/empty-order.png" alt="Chưa có đơn hàng">
+                <p>Chưa có đơn hàng</p>
+              </div>
+
+              <div class="order__show">
+                <ul class="order__list">
+                  <li class="order__item"><a href="#">
+                    <p class="order__code">OD05347</p>
+                    <img src="./assets/img/product/Van/Van1.jpg" alt="" class="order__img">
+                    <div class="order__info">
+                      <p class="order__name">VANS SK8-LOW VINTAGE POP MARSHMA TURT LEDOVE</p>
+                      <p class="order__option">Phân loại hàng: <span>Trắng, 40</span></p>
+                      <p class="order__quantity">Số lượng: <span>2</span></p>
+                    </div>
+                    <div class="order__price">
+                      <span class="order__price-old">2.900.000₫</span>
+                      <span class="order__price-new">1.900.000₫</span>
+                    </div>
+                    <div class="order__status order__status--complete">Hoàn thành</div>
+                  </a></li>
+
+                  <li class="order__item"><a>
+                    <p class="order__code">OD05347</p>
+                    <img src="./assets/img/product/Van/Van3.jpg" alt="" class="order__img">
+                    <div class="order__info">
+                      <p class="order__name">VANS SK8-LOW VINTAGE POP MARSHMA TURT LEDOVE</p>
+                      <p class="order__option">Phân loại hàng: <span>Trắng, 40</span></p>
+                      <p class="order__quantity">Số lượng: <span>2</span></p>
+                    </div>
+                    <div class="order__price">
+                      <span class="order__price-old">2.900.000₫</span>
+                      <span class="order__price-new">1.900.000₫</span>
+                    </div>
+                    <div class="order__status order__status--shipping">Vận chuyển</div>
+                  </a></li>
+
+                  <li class="order__item"><a>
+                    <p class="order__code">OD05347</p>
+                    <img src="./assets/img/product/Van/Van2.jpg" alt="" class="order__img">
+                    <div class="order__info">
+                      <p class="order__name">VANS SK8-LOW VINTAGE POP MARSHMA TURT LEDOVE</p>
+                      <p class="order__option">Phân loại hàng: <span>Trắng, 40</span></p>
+                      <p class="order__quantity">Số lượng: <span>2</span></p>
+                    </div>
+                    <div class="order__price">
+                      <span class="order__price-old">2.900.000₫</span>
+                      <span class="order__price-new">1.900.000₫</span>
+                    </div>
+                    <div class="order__status order__status--canceled">Đã hủy</div>
+                  </a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tab-pane fade tab-pane-none" id="order-processing">
+              <div class="order__empty">
+                <img src="./assets/img/other/empty-order.png" alt="Chưa có đơn hàng">
+                <p>Chưa có đơn hàng</p>
+              </div>
+
+              <div class="order__show">
+                <ul class="order__list">
+                  <li class="order__item"><a>
+                    <p class="order__code">OD05347</p>
+                    <img src="./assets/img/product/Van/Van4.jpg" alt="" class="order__img">
+                    <div class="order__info">
+                      <p class="order__name">VANS SK8-LOW VINTAGE POP MARSHMA TURT LEDOVE</p>
+                      <p class="order__option">Phân loại hàng: <span>Trắng, 40</span></p>
+                      <p class="order__quantity">Số lượng: <span>2</span></p>
+                    </div>
+                    <div class="order__price">
+                      <span class="order__price-old">2.900.000₫</span>
+                      <span class="order__price-new">1.900.000₫</span>
+                    </div>
+                    <div class="order__status order__status--processing">Đang xử lý</div>
+                  </a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="order-shipping">
+              <div class="order__empty">
+                <img src="./assets/img/other/empty-order.png" alt="Chưa có đơn hàng">
+                <p>Chưa có đơn hàng</p>
+              </div>
+
+              <div class="order__show">
+                <ul class="order__list">
+                  <li class="order__item"><a>
+                    <p class="order__code">OD05347</p>
+                    <img src="./assets/img/product/Van/Van3.jpg" alt="" class="order__img">
+                    <div class="order__info">
+                      <p class="order__name">VANS SK8-LOW VINTAGE POP MARSHMA TURT LEDOVE</p>
+                      <p class="order__option">Phân loại hàng: <span>Trắng, 40</span></p>
+                      <p class="order__quantity">Số lượng: <span>2</span></p>
+                    </div>
+                    <div class="order__price">
+                      <span class="order__price-old">2.900.000₫</span>
+                      <span class="order__price-new">1.900.000₫</span>
+                    </div>
+                    <div class="order__status order__status--shipping">Vận chuyển</div>
+                  </a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="order-completed">
+              <div class="order__empty">
+                <img src="./assets/img/other/empty-order.png" alt="Chưa có đơn hàng">
+                <p>Chưa có đơn hàng</p>
+              </div>
+
+              <div class="order__show">
+                <ul class="order__list">
+                  <li class="order__item"><a href="#">
+                    <p class="order__code">OD05347</p>
+                    <img src="./assets/img/product/Van/Van1.jpg" alt="" class="order__img">
+                    <div class="order__info">
+                      <p class="order__name">VANS SK8-LOW VINTAGE POP MARSHMA TURT LEDOVE</p>
+                      <p class="order__option">Phân loại hàng: <span>Trắng, 40</span></p>
+                      <p class="order__quantity">Số lượng: <span>2</span></p>
+                    </div>
+                    <div class="order__price">
+                      <span class="order__price-old">2.900.000₫</span>
+                      <span class="order__price-new">1.900.000₫</span>
+                    </div>
+                    <div class="order__status order__status--complete">Hoàn thành</div>
+                  </a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="order-canceled">
+              <div class="order__empty">
+                <img src="./assets/img/other/empty-order.png" alt="Chưa có đơn hàng">
+                <p>Chưa có đơn hàng</p>
+              </div>
+
+              <div class="order__show">
+                <ul class="order__list">
+                  <li class="order__item"><a>
+                    <p class="order__code">OD05347</p>
+                    <img src="./assets/img/product/Van/Van2.jpg" alt="" class="order__img">
+                    <div class="order__info">
+                      <p class="order__name">VANS SK8-LOW VINTAGE POP MARSHMA TURT LEDOVE</p>
+                      <p class="order__option">Phân loại hàng: <span>Trắng, 40</span></p>
+                      <p class="order__quantity">Số lượng: <span>2</span></p>
+                    </div>
+                    <div class="order__price">
+                      <span class="order__price-old">2.900.000₫</span>
+                      <span class="order__price-new">1.900.000₫</span>
+                    </div>
+                    <div class="order__status order__status--canceled">Đã hủy</div>
+                  </a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="user__setting"  class="profile__right-item">
+          SETTING
+
+        </div>
+
+        <div id="user__faq"  class="profile__right-item">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Laborum dolorem quam porro</h5>
+
+              <div class="accordion accordion-flush" id="faq-group-1">
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-target="#faqsOne-1" type="button" data-bs-toggle="collapse">
+                      Debitis adipisci eius?
+                    </button>
+                  </h2>
+                  <div id="faqsOne-1" class="accordion-collapse collapse" data-bs-parent="#faq-group-1">
+                    <div class="accordion-body">
+                      Ut quasi odit odio totam accusamus vero eius. Nostrum asperiores voluptatem eos nulla ab dolores est asperiores iure. Quo est quis praesentium aut maiores. Corrupti sed aut expedita fugit vero dolorem. Nemo rerum sapiente. A quaerat dignissimos.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-target="#faqsOne-2" type="button" data-bs-toggle="collapse">
+                      Omnis fugiat quis repellendus?
+                    </button>
+                  </h2>
+                  <div id="faqsOne-2" class="accordion-collapse collapse" data-bs-parent="#faq-group-1">
+                    <div class="accordion-body">
+                      In minus quia impedit est quas deserunt deserunt et. Nulla non quo dolores minima fugiat aut saepe aut inventore. Qui nesciunt odio officia beatae iusto sed voluptatem possimus quas. Officia vitae sit voluptatem nostrum a.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-target="#faqsOne-3" type="button" data-bs-toggle="collapse">
+                      Et occaecati praesentium aliquam modi incidunt?
+                    </button>
+                  </h2>
+                  <div id="faqsOne-3" class="accordion-collapse collapse" data-bs-parent="#faq-group-1">
+                    <div class="accordion-body">
+                      Voluptates magni amet enim perspiciatis atque excepturi itaque est. Sit beatae animi incidunt eum repellat sequi ea saepe inventore. Id et vel et et. Nesciunt itaque corrupti quia ducimus. Consequatur maiores voluptatum fuga quod ut non fuga.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-target="#faqsOne-4" type="button" data-bs-toggle="collapse">
+                      Quo unde eaque vero dolor quis ipsam?
+                    </button>
+                  </h2>
+                  <div id="faqsOne-4" class="accordion-collapse collapse" data-bs-parent="#faq-group-1">
+                    <div class="accordion-body">
+                      Numquam ut reiciendis aliquid. Quia veritatis quasi ipsam sed quo ut eligendi et non. Doloremque sed voluptatem at in voluptas aliquid dolorum.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-target="#faqsOne-5" type="button" data-bs-toggle="collapse">
+                      Natus sunt quo atque mollitia accusamus?
+                    </button>
+                  </h2>
+                  <div id="faqsOne-5" class="accordion-collapse collapse" data-bs-parent="#faq-group-1">
+                    <div class="accordion-body">
+                      Aut necessitatibus maxime quis dolor et. Nihil laboriosam molestiae qui molestias placeat corrupti non quo accusamus. Nemo qui quis harum enim sed. Aliquam molestias pariatur delectus voluptas quidem qui rerum id quisquam. Perspiciatis voluptatem voluptatem eos. Vel aut minus labore at rerum eos.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div th:replace="common/header :: footer"> </div>
+  <div th:replace="common/header :: body-scripts"> </div>
+  <script>
+    $(document).ready(function(){
+  		$(".cartItemQty").on('change', function(){
+  			var id=this.id;	
+  			var qty=this.value;
+  			$('#newqty').val(qty)
+  			$('#newid').val(id)
+  			$('#update-item-'+id).css('display', 'inline-block');
+  		});
+    });
+  </script>
+  
+</body>
+</html>

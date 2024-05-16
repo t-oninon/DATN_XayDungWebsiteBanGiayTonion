@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS = {
 			"/css/**",
 			"/fontawesome/**",
+			"/vendor/**",
 			"/js/**",
 			"/image/**",
 			"/",
@@ -36,7 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/login",
 			"/register",
 			"/store",
-			"/article-detail"				
+			"/service",
+			"/contact",
+			"/user",
+			"/article-detail"
 	};
 	
 	@Override

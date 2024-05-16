@@ -1,9 +1,15 @@
 package com.nico.store.store.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.nico.store.store.domain.CartItem;
+import com.nico.store.store.domain.Category;
+import com.nico.store.store.domain.ShoppingCart;
+import com.nico.store.store.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -30,6 +36,9 @@ public class GlobalControllerAdvice {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 
+	@Autowired
+	private ArticleService articleService;
+
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
 		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
@@ -43,10 +52,19 @@ public class GlobalControllerAdvice {
 			User user =  (User) auth.getPrincipal(); 
 			if (user != null) {
 				model.addAttribute("shoppingCartItemNumber", shoppingCartService.getItemsNumber(user) );
+				ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(user);
+				List<CartItem> cartItemList =  shoppingCart.getCartItems();
+				if(cartItemList.size() > 4) {
+					cartItemList = cartItemList.subList(0, 4);
+				}
+				model.addAttribute("cartItemList", cartItemList);
 			}
 		} else { 
 			model.addAttribute("shoppingCartItemNumber", 0);
-		} 
+			model.addAttribute("cartItemList", new ArrayList<>());
+		}
+		List<Category> test = articleService.getAllCategories();
+		model.addAttribute("lstCategory", articleService.getAllCategories());
 	}
 	
 	@ExceptionHandler(value = Exception.class)

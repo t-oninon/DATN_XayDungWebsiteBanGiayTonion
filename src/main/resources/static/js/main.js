@@ -600,6 +600,11 @@
 
 })();
 
+function toggleToninon(event) {
+  document.querySelector('#tonionModal').classList
+      .toggle('tonionModal--open')
+}
+
 function CloseModal(event) {
   event.target.parentElement.parentElement.parentElement
   .classList.remove('auth-modal--open')
