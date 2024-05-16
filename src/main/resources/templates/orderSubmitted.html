@@ -11,19 +11,19 @@
       <div class="card-body">
         <div class="text-center py-3">
           <i data-feather="check-circle" class="text-success" width="48" height="48"></i>
-          <h1>Thank you.</h1>
-          <p>Your order has been placed and will be processed as soon as possible.</p>
+          <h1>Cảm ơn quý khách.</h1>
+          <p>Đơn hàng của bạn đã được đặt và sẽ được xử lý trong thời gian sớm nhất.</p>
           <p class="mb-0">
             <span class="text-muted">Order ID: </span>
             <span class="text-info">#ORD<span th:text="${order.id}"></span></span>
           </p>
           <p>
-            <span class="text-muted">Amount: </span>
-            <span class="text-info">$ <span th:text="${order.orderTotal}"></span></span>
+            <span class="text-muted">Tổng tiền: </span>
+            <span class="text-info"><span th:text="${#numbers.formatDecimal(order.orderTotal, 0, 'COMMA', 0, 'POINT')}"></span> VND</span>
           </p>
-          <p>The estimated delivery date is <span th:text="${#dates.format(order.shippingDate, 'dd-MMM-yyyy')}"></span></p>
-          <a th:href="@{/store}" class="btn btn-info rounded mb-3">CONTINUE SHOPPING</a>
-          <a th:href="@{/order-detail?order=}+${order.id}" class="btn btn-primary rounded mb-3">VIEW ORDER</a>
+          <p>Ngày giao hàng ước tính là <span th:text="${#dates.format(order.shippingDate, 'dd-MM-yyyy')}"></span></p>
+          <a th:href="@{/store}" class="btn btn-info rounded mb-3">Tiếp tục mua sắm</a>
+          <a th:href="@{/order-detail?order=}+${order.id}" class="btn btn-primary rounded mb-3">Xem chi tiết đơn hàng</a>
         </div>
       </div>
     </div>  

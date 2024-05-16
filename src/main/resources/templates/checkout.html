@@ -36,18 +36,18 @@
                           <a th:href="@{/article-detail?id=}+${cartItem.article.id}" class="h6 bold d-inline-block" th:text=${cartItem.article.title}></a>
                             <div><i data-feather="check-circle" class="text-success"></i> Còn hàng</div>
                             <div class="my-2"><span><b>Kích thước</b>: <span th:text="${cartItem.size}"></span></span></div>
-                            <span><b>Giá bán</b>: <span th:text="${#numbers.formatDecimal(cartItem.article.price, 0, 'COMMA', 0, 'POINT')}"> VND</span></span>
+                            <span><b>Giá bán</b>: <span th:text="${#numbers.formatDecimal(cartItem.article.price, 0, 'COMMA', 0, 'POINT')}"> </span> VND</span>
                         </div>
                       </div> 
                     </div>  
                     <div class="col-12 col-md-6 text-right">
                       <span>x<span th:text="${cartItem.qty}"></span> sản phẩm: </span>
-                      <span class="font-weight-bold text-info"><span th:id="'price'+${cartItem.id}" th:text="${#numbers.formatDecimal(cartItem.subtotal, 0, 'COMMA', 0, 'POINT')}"> VND</span></span>
+                      <span class="font-weight-bold text-info"><span th:id="'price'+${cartItem.id}" th:text="${#numbers.formatDecimal(cartItem.subtotal, 0, 'COMMA', 0, 'POINT')}"> </span>VND</span>
                     </div>                  
                   </div>                  
                   <div class="text-center mx-auto">
                     <small class="counter">TỔNG TIỀN</small>
-                    <h3 class="font-weight-bold"><span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"> VND</span></h3>
+                    <h3 class="font-weight-bold"><span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"> </span> VND</h3>
                   </div>                    
                   <div class="d-flex flex-wrap justify-content-between align-items-center mt-3">      
                     <a th:href="@{/shopping-cart/cart}" class="btn btn-info rounded-pill  "><i data-feather="arrow-left"></i> Quay lại giỏ hàng</a>
@@ -143,7 +143,7 @@
                         <label>Hiệu lực đến</label>
                         <div class="row">
                           <div class="col-6">
-                            <select class="form-control" name="expiryMonth"
+                            <select class="form-control" selected="5" name="expiryMonth"
                               required="required">
                               <option disabled="disabled">-- Tháng --</option>
                               <option value="1">Jan (01)</option>
@@ -161,7 +161,7 @@
                             </select>
                           </div>
                           <div class="col-6">
-                            <select class="form-control" name="expiryYear">
+                            <select class="form-control" selected="2024" name="expiryYear">
                               <option disabled="disabled">-- Năm --</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
@@ -189,7 +189,7 @@
                   </div>  
                   <div class="mt-2 text-right">
                     <a data-toggle="collapse" data-parent="#accordion"
-                      class="btn btn-primary rounded-pill" href="#collapseThree">Next <i data-feather="arrow-right"></i></a>
+                      class="btn btn-primary rounded-pill" href="#collapseThree">Tiếp tục <i data-feather="arrow-right"></i></a>
                   </div>                
                 </div>                
               </div>
@@ -205,7 +205,7 @@
             <div class="card-body">
               <div class="d-flex justify-content-between">
                 <span>Tiền sản phẩm: </span>
-                <span><span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"> VND</span></span>
+                <span><span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"> </span> VND</span>
               </div>
               <div class="d-flex justify-content-between">
                 <span>Phí vận chuyển: </span>
@@ -214,7 +214,7 @@
               <hr>
               <div class="d-flex justify-content-between">
                 <span>Số tiền phải trả: </span>
-                <span class="font-weight-bold">$ <span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"> VND</span></span>
+                <span class="font-weight-bold"> <span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"></span> VND</span>
               </div>
             </div>
             <div class="card-footer bg-white border-top-0">

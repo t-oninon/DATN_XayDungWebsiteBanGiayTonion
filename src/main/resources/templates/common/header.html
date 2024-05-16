@@ -6,7 +6,8 @@
   <meta name="description" content="">
   
   <title>Tonion</title>
-  <link rel="icon" href="/image/logo/icon-logo.png">
+  <link rel="icon" href="/image/logo_icon.png">
+  <link href="/image/logo_icon.png" rel="apple-touch-icon">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Roboto+Condensed|Roboto+Slab" rel="stylesheet">  
   <!-- Bootstrap core CSS -->
@@ -92,7 +93,7 @@
       <div class="header__right d-flex justify-content-end">
         <div class="header__item me-3"  sec:authorize="hasRole('ADMIN')">
           <div class="header__icon">
-            <a th:href="@{/article/article-list}"><i class="header__icon-i fa-solid fa-user-tie"></i></a>
+            <a th:href="@{/article/article-list}"><i class="header__icon-i fa-solid fa-user-shield"></i></a>
           </div>
         </div>
 
@@ -129,7 +130,7 @@
         <!-- ======= HEADER AUTH ======= -->
         <div class="header__item auth-btn header__auth">
           <div class="header__icon" sec:authorize="isAnonymous()">
-            <a th:href="@{/register}"><i class="header__icon-i fa-solid fa-user"></i></a>
+            <a th:href="@{/login}"><i class="header__icon-i fa-solid fa-user"></i></a>
           </div>
           <div class="header__icon" sec:authorize="isAuthenticated()">
             <a><i class="header__icon-i fa-solid fa-user"></i></a>
@@ -139,7 +140,7 @@
                 <i class="fa-solid fa-user"></i>
                 <span>Thông tin tài khoản</span>
               </a></li>
-              <li><a href="">
+              <li><a th:href="@{/my-orders}">
                 <i class="fa-regular fa-calendar-days"></i>
                 <span>Đơn hàng</span>
               </a></li>

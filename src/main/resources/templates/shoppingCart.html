@@ -60,11 +60,16 @@
              </div>   
            </div> 
          </div>
-         <div class="text-center mt-3">
-            <div th:if="${#lists.isEmpty(cartItemList)}">The cart is empty! </div>
-            <small class="counter">TỔNG TIỀN</small>
-            <h3 class="font-weight-bold"><span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"></span> VND</h3>
-            <a th:href="@{/checkout}" class="btn btn-primary rounded-pill" th:classappend="${#lists.isEmpty(cartItemList)} ? d-none">THANH TOÁN</a>
+         <div  th:if="${#lists.isEmpty(cartItemList)}" class="text-center mt-3">
+           <div class="no-cart-tonion">
+             <img src="/image/other/cart-empty.png" alt="">
+             <p>Chưa có sản phẩm</p>
+           </div>
+        </div>
+        <div th:if="!${#lists.isEmpty(cartItemList)}"  class="text-center mt-3">
+          <small class="counter">TỔNG TIỀN</small>
+          <h3 class="font-weight-bold"><span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"></span> VND</h3>
+          <a th:href="@{/checkout}" class="btn btn-primary rounded-pill" th:classappend="${#lists.isEmpty(cartItemList)} ? d-none">THANH TOÁN</a>
         </div>
       </div>
     </div>

@@ -2397,9 +2397,9 @@ h6 {
 
 .features-card {
     padding: 18px 24px;
-    background: #fff9f421;
-    border-radius: 12px;
-    box-shadow: 0 0 10px #51515121;
+    background: #edc8aa21;
+    border-radius: 6px;
+    box-shadow: 0 0 128px #a76b1b29;
 }
 
 .features-card h5 {
@@ -2688,7 +2688,6 @@ h6 {
 }
 
 .card {
- box-shadow: 0 .0625rem .25rem rgba(0,0,0,.075);
  border: 0 solid;
 }
 
@@ -2964,7 +2963,15 @@ h6 {
 .grid-gap-3 {
  grid-gap:1rem
 }
- a {
-     text-decoration: none;
- }
+a {
+ text-decoration: none;
+}
 
+.rounded {
+    border-radius: 10px !important;
+}
+
+.btn {
+    padding: 8px 26px !important;
+    margin: 0 6px;
+}

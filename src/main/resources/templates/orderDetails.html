@@ -5,39 +5,48 @@
 
 <body class="d-flex flex-column">
   <div th:replace="common/header :: navbar"> </div>
+  <section class="breadcrumb-infor">
+    <h2>Chi tiết đơn hàng</h2>
+    <nav class="d-flex justify-content-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/}" >Trang chủ</a></li>
+        <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
+      </ol>
+    </nav>
+  </section>
   <div class="container page-content">  
     <div class="row">
       <div class="col-12 col-sm-6 col-lg-4 mb-2 text-center text-left-lg">
-        <h5 class="font-weight-bold">Order details</h5>
+        <h5 class="font-weight-bold">Thông tin chung</h5>
         <div class="list-group list-group-flush list-group-no-border list-group-sm">
-          <div><strong>Date: </strong><span th:text="${#dates.format(order.orderDate, 'dd-MMM-yyyy')}"></span></div>
-          <div><strong>Delivery date: </strong><span th:text="${#dates.format(order.shippingDate, 'dd-MMM-yyyy')}"></span></div>
-          <div><strong>Current status: </strong><span th:text="${order.orderStatus}"></span></div>
+          <div><strong>Ngày đặt hàng: </strong><span th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy')}"></span></div>
+          <div><strong>Ngày giao hàng dự kến: </strong><span th:text="${#dates.format(order.shippingDate, 'dd-MM-yyyy')}"></span></div>
+          <div><strong>Trạng thái hiện tại: </strong><span th:text="${order.orderStatus}"></span></div>
         </div>        
         <hr class="d-block d-sm-none">
       </div>
       <div class="col-12 col-sm-6 col-lg-4 mb-2 text-center">
-        <h5 class="font-weight-bold">Shipping</h5>
+        <h5 class="font-weight-bold">Thông tin vận chuyển</h5>
         <div class="list-group list-group-flush list-group-no-border list-group-sm">
-          <div><strong>Receiver: </strong><span th:text="${order.shipping.receiver}"></span></div>
-          <div><strong>Address: </strong><span th:text="${order.shipping.address.streetAddress}"></span></div>
-          <div><strong>City: </strong><span th:text="${order.shipping.address.city}"></span></div>
-          <div><strong>Country: </strong><span th:text="${order.shipping.address.country}"></span></div>
-          <div><strong>Zip Code: </strong><span th:text="${order.shipping.address.zipCode}"></span></div>
+          <div><strong>Người nhận: </strong><span th:text="${order.shipping.receiver}"></span></div>
+          <div><strong>Địa chỉ: </strong><span th:text="${order.shipping.address.streetAddress}"></span></div>
+          <div><strong>Tỉnh / Thành phố: </strong><span th:text="${order.shipping.address.city}"></span></div>
+          <div><strong>Thị trấn / Huyện: </strong><span th:text="${order.shipping.address.country}"></span></div>
+          <div><strong>Mã bưu điện(ZipCode): </strong><span th:text="${order.shipping.address.zipCode}"></span></div>
         </div>
         <hr class="d-block d-sm-none">        
       </div>
       <div class="col-12 col-sm-6 col-lg-4 mb-2 text-center">
-        <h5 class="font-weight-bold">Payment</h5>
+        <h5 class="font-weight-bold">Thông tin thanh toán</h5>
         <div class="list-group list-group-flush list-group-no-border list-group-sm">
-          <div><strong>Credit card: </strong><span th:text="${order.payment.type}"></span></div>    
-          <div><strong>Card owner: </strong><span th:text="${order.payment.holderName}"></span></div>
-          <div><strong>Card number: </strong><span th:text="${order.payment.cardNumber}"></span></div>
+          <div><strong>Thẻ tín dụng: </strong><span th:text="${order.payment.type}"></span></div>
+          <div><strong>Chủ sở hữu: </strong><span th:text="${order.payment.holderName}"></span></div>
+<!--          <div><strong>Card number: </strong><span th:text="${order.payment.cardNumber}"></span></div>-->
         </div>
       </div>
     </div>
     <hr>
-    <h5 class="font-weight-bold text-center">Purchased products</h5>    
+    <h5 class="font-weight-bold text-center">Danh sách sản phẩm</h5>
     <div class="row">
       <div class="card-body">
         <div class="row align-items-center border-bottom py-2" th:each="cartItem : ${order.cartItems}">
@@ -51,8 +60,8 @@
               <div class="col-8">
                 <a th:href="@{/article-detail?id=}+${cartItem.article.id}" class="h6 bold d-inline-block" th:text=${cartItem.article.title}></a>
                   <br>
-                  <div><small><b>Size</b>: <span th:text="${cartItem.size}"></span></small></div>                  
-                  <small><b>Unit Price</b>: $<span th:text="${#numbers.formatDecimal(cartItem.article.price, 0, 'COMMA', 2, 'POINT')}"></span></small>
+                  <div><span><b>Kích thước</b>: <span th:text="${cartItem.size}"></span></span></div>
+                  <sapn><b>Giá bán</b>: <span th:text="${#numbers.formatDecimal(cartItem.article.price, 0, 'COMMA', 0, 'POINT')}"></span> VND</sapn>
               </div>
               
             </div>
@@ -60,16 +69,14 @@
               
           <div class="col-12 col-md-6 text-right">
             <span>x<span th:text="${cartItem.qty}"></span> sản phẩm: </span>
-            <span class="font-weight-bold text-info"> <span th:id="'price'+${cartItem.id}" th:text="${#numbers.formatDecimal(cartItem.subtotal, 0, 'COMMA', 0, 'POINT')}"> VND</span></span>
+            <span class="font-weight-bold text-info"> <span th:id="'price'+${cartItem.id}" th:text="${#numbers.formatDecimal(cartItem.subtotal, 0, 'COMMA', 0, 'POINT')}"></span> VND</span>
           </div>  
-              
-            
-                                     
+
        </div>  
        <div class="d-flex justify-content-center align-items-center mt-3">
          <div class="text-center">           
-           <small class="counter">TOTAL</small>
-           <h3 class="font-weight-bold">$ <span th:text="${#numbers.formatDecimal(order.orderTotal, 0, 'COMMA', 2, 'POINT')}"></span></h3>
+           <small class="counter">TỔNG TIỀN</small>
+           <h3 class="font-weight-bold"><span th:text="${#numbers.formatDecimal(order.orderTotal, 0, 'COMMA', 0, 'POINT')}"></span> VND</h3>
           </div>         
        </div>
        </div>

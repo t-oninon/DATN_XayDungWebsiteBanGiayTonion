@@ -13,26 +13,26 @@
           <div class="card-body text-center">
             <img src="/image/user/user.png" width="100" height="100" alt="User" class="rounded-circle mb-3">
             <h5 class="bold mb-0" th:text="${#strings.capitalize(user.username)}"></h5>
-            <small class="text-secondary" th:text="'Last seen '+${#dates.format(#dates.createNow(), 'MMM dd, yyyy')}"></small>       
+            <small class="text-secondary" th:text="'Đăng nhập lần cuối vào: '+${#dates.format(#dates.createNow(), 'dd/MM/yyyy')}"></small>
           </div>
           <div class="list-group list-group-flush">
-            <a th:href="@{/my-profile}" class="list-group-item list-group-item-action active"><i data-feather="user" class="mr-3"></i> Profile</a>
-            <a th:href="@{/my-orders}" class="list-group-item list-group-item-action"><i data-feather="shopping-bag" class="mr-3"></i> Orders</a>
-            <a th:href="@{/my-address}" class="list-group-item list-group-item-action"><i data-feather="map" class="mr-3"></i> Address</a>
-            <a th:href="@{/logout}" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out" class="mr-3"></i> Logout</a>
+            <a th:href="@{/my-profile}" class="list-group-item list-group-item-action active"><i data-feather="user" class="mr-3"></i> Thông tin cá nhân</a>
+            <a th:href="@{/my-orders}" class="list-group-item list-group-item-action"><i data-feather="shopping-bag" class="mr-3"></i> Đơn hàng</a>
+            <a th:href="@{/my-address}" class="list-group-item list-group-item-action"><i data-feather="map" class="mr-3"></i> Địa chỉ</a>
+            <a th:href="@{/logout}" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out" class="mr-3"></i> Đăng xuất</a>
           </div>
         </div>
       </div>
       
        <div class="col mt-3 mt-md-0">
           <div th:if="${updateSuccess}" class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Profile updated!</strong>
+            <strong>Cập nhật thông tin cá nhân thành công!</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div th:if="${incorrectPassword}" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Incorrect password</strong>
+            <strong>Mật khẩu không chính xác</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -40,44 +40,44 @@
               
           <div class="card">
             <div class="card-body">
-              <h3>My Profile</h3><hr>
+              <h3>Thông tin cá nhân</h3><hr>
               <form id="profileForm" th:action="@{/update-user-info}" novalidate method="post">
                 <div class="form-row">
                   <div class="form-group col-sm-6">
-                    <label for="firstName">First Name</label>                        
+                    <label for="lastName">Họ đệm</label>
+                    <input type="text" class="form-control"
+                           id="lastName" name="lastName" th:value="${user.lastName}">
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label for="firstName">Tên</label>
                     <input type="text" class="form-control" 
                                 id="firstName" name="firstName" th:value="${user.firstName}">                   
-                  </div>                  
-                  <div class="form-group col-sm-6">
-                    <label for="lastName">Last Name</label>                        
-                    <input type="text" class="form-control" 
-                                id="lastName" name="lastName" th:value="${user.lastName}">
                   </div>
                   <div class="form-group col-sm-6">
-                    <label for="userName">Username</label>
+                    <label for="userName">Tên đăng nhập</label>
                     <input required="required" type="text" class="form-control" th:classappend="${usernameExists} ? is-invalid"
                                 id="userName" name="username" th:value="${user.username}">
-                    <div class="invalid-feedback">Username already in use. Choose another one.</div>
+                    <div class="invalid-feedback">Tên đăng nhập đã được sủ dụng</div>
                   </div>
                   <div class="form-group col-sm-6">
-                    <label for="email">Email address</label>
+                    <label for="email">Địa chỉ Enail</label>
                     <input required="required" type="text" class="form-control" th:classappend="${emailExists} ? is-invalid"
                                 id="email" name="email" th:value="${user.email}">
-                    <div class="invalid-feedback">Email already used by an existing account.</div>
+                    <div class="invalid-feedback">Email đã được sử dụng</div>
                   </div>
                   <div class="form-group col-sm-6">
-                    <label for="txtNewPassword">New password</label>
+                    <label for="txtNewPassword">Mật khẩu mới</label>
                     <input type="password" class="form-control" 
                                 id="txtNewPassword" name="newPassword" autocomplete="new-password">
                   </div>
                   <div class="form-group col-sm-6">                
-                    <label for="txtConfirmPassword">Confirm password</label>
+                    <label for="txtConfirmPassword">Xác nhận mật khẩu</label>
                     <input type="password" class="form-control" 
                                 id="txtConfirmPassword" >
-                    <div class="invalid-feedback">Passwords do not match</div>                                
+                    <div class="invalid-feedback">Xác nhận mật khẩu không khớp</div>
                   </div>
                   <div class="form-group col-12">                
-                    <button id="updateUserInfoButton" type="button" class="btn btn-primary">UPDATE PROFILE</button>
+                    <button id="updateUserInfoButton" type="button" class="btn btn-primary">Cập nhật</button>
                   </div>
                 </div>
                 
