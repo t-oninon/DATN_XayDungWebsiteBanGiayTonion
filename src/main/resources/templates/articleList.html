@@ -36,7 +36,20 @@
         <td th:text="${article.price}"></td>
         <td th:text="${article.stock}"></td>
         <td><a th:href="@{/article/edit?id=}+${article.id}" class="badge badge-primary">EDIT</a>
-          <a th:href="@{/article/delete?id=}+${article.id}" class="badge badge-danger">DELETE </a> </td>
+          <a class="badge badge-danger" onClick="toggleToninon()">DELETE</a>
+          <div class="tonionModal" id="tonionModal">
+            <div class="tonionModal__contanier">
+              <div class="tonionModal__header">XÁC NHẬN XÓA</div>
+              <div class="tonionModal__body">
+                <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
+              </div>
+              <div class="tonionModal__footer">
+                <button type="reset" class="tonionModal__btn popup__btn--reset" onClick="toggleToninon()">Hủy bỏ</button>
+                <button type="submit"  class="tonionModal__btn popup__btn--submit"><a th:href="@{/article/delete?id=}+${article.id}">Xác nhận</a></button>
+              </div>
+            </div>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>
