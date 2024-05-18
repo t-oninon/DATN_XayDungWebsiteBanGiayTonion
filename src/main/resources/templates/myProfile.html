@@ -32,7 +32,7 @@
             </button>
           </div>
           <div th:if="${incorrectPassword}" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Mật khẩu không chính xác</strong>
+            <strong>Mật khẩu hiện tại không chính xác</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -86,7 +86,7 @@
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Type your current password</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Nhập mật khẩu hieện tại</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -95,8 +95,8 @@
                          <input type="password" class="form-control" id="password" name="password">
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
                       </div>
                     </div>
                   </div>

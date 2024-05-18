@@ -22,6 +22,7 @@ public class Category {
 	private Set<CategoryArticle> categoryArticles;
 
 	public Category() {
+		categoryArticles = null;
 	}
 
 	public Category(String name, Boolean status, Set<CategoryArticle> categoryArticles) {

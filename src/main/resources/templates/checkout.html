@@ -6,15 +6,15 @@
 <body class="d-flex flex-column">
   <div th:replace="common/header :: navbar"> </div>
 
-  <div class="container page-content">   
+  <div class="container page-content">
     <form th:action="@{/checkout}" method="post">
-      <div class="row">      
+      <div class="row">
 
-        <!-- Checkout Info -->                         
+        <!-- Checkout Info -->
         <div class="col-lg-8 mb-3" >
           <div th:if="${missingRequiredField}">
             <h5 class="alert alert-warning">Bạn cần nhập đủ thông tin các trường bắt buộc.</h5>
-          </div>          
+          </div>
           <div id="accordion">
             <div class="card">
               <div class="card-header bg-white" id="headingOne">
@@ -25,10 +25,10 @@
                 </h5>
               </div>
               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body border-bottom">                
+                <div class="card-body border-bottom">
                   <div class="row align-items-center border-bottom  pb-2 pt-2" th:each="cartItem : ${cartItemList}">
                     <div class="col-12 col-md-6 mb-2">
-                      <div class="row align-items-center">                      
+                      <div class="row align-items-center">
                         <div class="col-4">
                           <a th:href="@{/article-detail?id=}+${cartItem.article.id}"><img class="img-fluid" th:src="'/image/article/pictures/'+${cartItem.article.picture}" alt="${cartItem.article.title}"></a>
                         </div>
@@ -38,23 +38,23 @@
                             <div class="my-2"><span><b>Kích thước</b>: <span th:text="${cartItem.size}"></span></span></div>
                             <span><b>Giá bán</b>: <span th:text="${#numbers.formatDecimal(cartItem.article.price, 0, 'COMMA', 0, 'POINT')}"> </span> VND</span>
                         </div>
-                      </div> 
-                    </div>  
+                      </div>
+                    </div>
                     <div class="col-12 col-md-6 text-right">
                       <span>x<span th:text="${cartItem.qty}"></span> sản phẩm: </span>
                       <span class="font-weight-bold text-info"><span th:id="'price'+${cartItem.id}" th:text="${#numbers.formatDecimal(cartItem.subtotal, 0, 'COMMA', 0, 'POINT')}"> </span>VND</span>
-                    </div>                  
-                  </div>                  
+                    </div>
+                  </div>
                   <div class="text-center mx-auto">
                     <small class="counter">TỔNG TIỀN</small>
                     <h3 class="font-weight-bold"><span th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 0, 'POINT')}"> </span> VND</h3>
-                  </div>                    
-                  <div class="d-flex flex-wrap justify-content-between align-items-center mt-3">      
+                  </div>
+                  <div class="d-flex flex-wrap justify-content-between align-items-center mt-3">
                     <a th:href="@{/shopping-cart/cart}" class="btn btn-info rounded-pill  "><i data-feather="arrow-left"></i> Quay lại giỏ hàng</a>
                     <a data-toggle="collapse" data-parent="#accordion"
                         class="btn btn-primary rounded-pill " href="#collapseTwo">Tiếp tục <i data-feather="arrow-right"></i></a>
                   </div>
-                </div>                 
+                </div>
               </div>
             </div>
             <div class="card">
@@ -64,14 +64,14 @@
                     VẬN CHUYỂN <i data-feather="chevron-down" class="mb-1"></i>
                   </button>
                 </h5>
-              </div>    
+              </div>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body border-bottom">
                   <div class="form-row">
                     <div class="form-group col-12">
                       <label for="receiver">Tên người nhận</label>
                       <input type="text" class="form-control" id="receiver" name="receiver" required="required"/>
-                    </div>  
+                    </div>
                     <div class="form-group col-12">
                       <label for="streetAddress">Địa chỉ</label>
                       <input type="text" class="form-control" id="streetAddress" name="streetAddress" required="required" />
@@ -90,7 +90,7 @@
                       <label for="zipCode">Mã bưu điện(Zipcode)</label> <input
                         type="text" class="form-control" id="zipCode"
                         th:name="zipCode" required="required" />
-                    </div>                                       
+                    </div>
                   </div>
                   <div class="mt-2 text-right">
                     <a data-toggle="collapse" data-parent="#accordion"
@@ -115,10 +115,10 @@
                       <div class="form-group">
                         <label for="cardType">Chọn loại thẻ: </label> <select
                           class="form-control" id="cardType" name="type">
-                          <option value="visa">Visa</option>
-                          <option value="mastercard">Mastercard</option>
-                          <option value="discover">Discover</option>
-                          <option value="amex">American Express</option>
+                          <option value="Visa">Visa</option>
+                          <option value="Mastercard">Mastercard</option>
+                          <option value="Discover">Discover</option>
+                          <option value="Amex">American Express</option>
                         </select>
                       </div>
 
@@ -143,14 +143,14 @@
                         <label>Hiệu lực đến</label>
                         <div class="row">
                           <div class="col-6">
-                            <select class="form-control" selected="5" name="expiryMonth"
+                            <select class="form-control" name="expiryMonth"
                               required="required">
                               <option disabled="disabled">-- Tháng --</option>
                               <option value="1">Jan (01)</option>
                               <option value="2">Feb (02)</option>
                               <option value="3">Mar (03)</option>
                               <option value="4">Apr (04)</option>
-                              <option value="5">May (05)</option>
+                              <option value="5" selected="selected">May (05)</option>
                               <option value="6">June (06)</option>
                               <option value="7">July (07)</option>
                               <option value="8">Aug (08)</option>
@@ -161,7 +161,7 @@
                             </select>
                           </div>
                           <div class="col-6">
-                            <select class="form-control" selected="2024" name="expiryYear">
+                            <select class="form-control" name="expiryYear">
                               <option disabled="disabled">-- Năm --</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
@@ -169,7 +169,7 @@
                               <option value="2021">2021</option>
                               <option value="2022">2022</option>
                               <option value="2023">2023</option>
-                              <option value="2024">2024</option>
+                              <option value="2024" selected="selected">2024</option>
                               <option value="2025">2025</option>
                               <option value="2026">2026</option>
                               <option value="2027">2027</option>
@@ -186,18 +186,18 @@
                           type="tel" class="form-control" name="cvc"/>
                       </div>
                     </div>
-                  </div>  
+                  </div>
                   <div class="mt-2 text-right">
                     <a data-toggle="collapse" data-parent="#accordion"
                       class="btn btn-primary rounded-pill" href="#collapseThree">Tiếp tục <i data-feather="arrow-right"></i></a>
-                  </div>                
-                </div>                
+                  </div>
+                </div>
               </div>
-            </div>            
-          </div> <!--  end accordion -->          
+            </div>
+          </div> <!--  end accordion -->
         </div>
-        
-        
+
+
         <!-- Summary Panel -->
         <div class="col-lg-4">
           <div class="card">
@@ -222,16 +222,16 @@
                 THANH TOÁN
               </button>
             </div>
-          </div>       
-        </div>        
+          </div>
+        </div>
       </div>
-    </form>             
-    
+    </form>
+
   </div> <!--  end container -->
-  
-  <div th:replace="common/header :: footer"> </div>  
+
+  <div th:replace="common/header :: footer"> </div>
   <div th:replace="common/header :: body-scripts"> </div>
- 
-  
+
+
 </body>
 </html>

@@ -22,6 +22,4 @@ public class AdminController {
 		model.addAttribute("articles", articles);
 		return "adminIndex";
 	}
-
-	
 }

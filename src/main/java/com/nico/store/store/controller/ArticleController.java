@@ -50,7 +50,6 @@ public class ArticleController {
 								 HttpServletRequest request,
 								 @RequestParam("file") MultipartFile file
 	) {
-
 		List<String> a = Arrays.asList(request.getParameter("category").split("\\s*,\\s*"));
 
 		List<String> b = Arrays.asList(request.getParameter("brand").split("\\s*,\\s*"));
@@ -89,39 +88,58 @@ public class ArticleController {
 			preselectedSizes += (size.getValue() + ",");
 		}
 		String preselectedBrands = "";
-//		for (Brand brand : article.getBrands()) {
-//			preselectedBrands += (brand.getName() + ",");
-//		}
-//		String preselectedCategories = "";
-//		for (Category category : article.getCategories()) {
-//			preselectedCategories += (category.getName() + ",");
-//		}
+
+		List<Map<String, Object>> brands = articleService.findListBrandByArticleId(id);
+		List<Map<String, Object>> categories = articleService.findListCategoryByArticleId(id);
+
+		for (Map brand : brands) {
+			preselectedBrands += ((String)brand.get("name") + ",");
+		}
+		String preselectedCategories = "";
+		for (Map category : categories) {
+			preselectedCategories += ((String)category.get("name") + ",");
+		}
+
 		model.addAttribute("article", article);
 		model.addAttribute("preselectedSizes", preselectedSizes);
 		model.addAttribute("preselectedBrands", preselectedBrands);
-//		model.addAttribute("preselectedCategories", preselectedCategories);
+		model.addAttribute("preselectedCategories", preselectedCategories);
 		model.addAttribute("allSizes", articleService.getAllSizes());
 		model.addAttribute("allBrands", articleService.getAllBrands());
 		model.addAttribute("allCategories", articleService.getAllCategories());
 		return "editArticle";
 	}
-	
-//	@RequestMapping(value="/edit", method=RequestMethod.POST)
-//	public String editArticlePost(@ModelAttribute("article") Article article, HttpServletRequest request) {
-//		Article newArticle = new ArticleBuilder()
-//				.withTitle(article.getTitle())
-//				.stockAvailable(article.getStock())
-//				.withPrice(article.getPrice())
-//				.imageLink(article.getPicture())
-//				.sizesAvailable(Arrays.asList(request.getParameter("size").split("\\s*,\\s*")))
-//				.ofCategories(Arrays.asList(request.getParameter("category").split("\\s*,\\s*")))
-//				.ofBrand(Arrays.asList(request.getParameter("brand").split("\\s*,\\s*")))
-//				.build();
-//		newArticle.setId(article.getId());
-//		articleService.saveArticle(newArticle);
-//		return "redirect:article-list";
-//	}
-//
+
+	@RequestMapping(value="/edit", method=RequestMethod.POST)
+	public String editArticlePost(
+			@ModelAttribute("article") Article article,
+			HttpServletRequest request,
+			@RequestParam("file") MultipartFile file
+	) {
+		List<String> a = Arrays.asList(request.getParameter("category").split("\\s*,\\s*"));
+
+		List<String> b = Arrays.asList(request.getParameter("brand").split("\\s*,\\s*"));
+
+		List<Category> categoryList =  articleService.getAllCategories();
+		List<Category> c = articleService.getAllCategories().stream().filter(e -> a.contains(e.getName())).collect(Collectors.toList());
+		List<Brand> d = articleService.getAllBrands().stream().filter(e -> b.contains(e.getName())).collect(Collectors.toList());
+
+		this.storageService.store(file);
+
+		Article newArticle = new ArticleBuilder()
+				.withTitle(article.getTitle())
+				.stockAvailable(article.getStock())
+				.withPrice(article.getPrice())
+				.imageLink(article.getPicture())
+				.sizesAvailable(Arrays.asList(request.getParameter("size").split("\\s*,\\s*")))
+				.ofCategories(c)
+				.ofBrand(d)
+				.build();
+		newArticle.setId(article.getId());
+		articleService.saveArticle(newArticle);
+		return "redirect:article-list";
+	}
+
 	@RequestMapping("/delete")
 	public String deleteArticle(@RequestParam("id") Long id) {
 		articleService.deleteArticleById(id);
